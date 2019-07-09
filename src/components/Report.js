@@ -1,4 +1,4 @@
-import './Report.css'
+import '../styles/Report.css';
 
 import React from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';

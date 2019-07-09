@@ -1,4 +1,4 @@
-import './Filter.css'
+import '../styles/Filter.css';
 
 import React from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';

@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
+import './styles/App.css';
 
-import Filter from './Filter';
-import Report from './Report';
+import Filter from './components/Filter';
+import Report from './components/Report';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
