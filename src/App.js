@@ -2,9 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import Navbar from './Navigation'
 import './App.css';
+import * as helper from './components/Firebase/helper'
 
 function App() {
+
   return (
+
     <div className="App">
       <Navbar></Navbar>
 
