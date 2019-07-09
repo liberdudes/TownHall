@@ -1,11 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {withFirebase} from "./components/Firebase";
 
 function App() {
-
-  var count = 0;
 
   return (
 
@@ -24,17 +21,9 @@ function App() {
           Learn React
         </a>
       </header>
-      <button onClick={createMessage("test subject")} />
     </div>
   );
 
-  function createMessage(subject) {
-    count++;
-    this.props.firebase.db.ref('messages/' + count).set({
-      subject: subject,
-      body: 'test body'
-    });
-  }
 }
 
 export default App;

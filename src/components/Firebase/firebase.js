@@ -1,8 +1,4 @@
-import app from 'firebase/app';
-// Firebase App (the core Firebase SDK) is always required and must be listed first
-// import * as firebase from "firebase/app";
-//
-// // Add the Firebase products that you want to use
+import firebase from 'firebase/app';
 import "firebase/database";
 
 const firebaseConfig = {
@@ -15,12 +11,6 @@ const firebaseConfig = {
     appId: "1:957603794853:web:b0274d04f8b24ca4"
 };
 
-class Firebase {
-    constructor() {
-        app.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-        this.db = app.database();
-    }
-}
-
-export default Firebase;
+export const db = firebase.database();
