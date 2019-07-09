@@ -9,34 +9,19 @@ import Col from 'react-bootstrap/Col';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
-
 import Filter from './Filter';
 import Report from './Report';
-
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 function App() {
 
   return (
     <div className="App">
-        <Container id="container">
-          <Row>
-            <Col xs={3} id="col1">
-              <Filter/>
-              <Report/>
       <Navbar></Navbar>
-
       <Container id="container">
-      <Row>
-        <Col xs={3} id="col1">
-          <h2 id="filter_text">
-            Filter
-          </h2>
-          <h4 class="filter_headers_text">
-            Date
-          </h4>
+        <Row>
+          <Col xs={3} id="col1">
+            <Filter/>
+            <Report/>
           <DropdownButton variant="light" id="dropdown-basic-button" title="Last">
             <Dropdown.Item href="#/action-1">Last Week</Dropdown.Item>
             <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
