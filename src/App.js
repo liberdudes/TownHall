@@ -10,11 +10,22 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 
+import Filter from './Filter';
+import Report from './Report';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 function App() {
 
   return (
-
     <div className="App">
+        <Container id="container">
+          <Row>
+            <Col xs={3} id="col1">
+              <Filter/>
+              <Report/>
       <Navbar></Navbar>
 
       <Container id="container">
@@ -59,6 +70,7 @@ function App() {
             <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
           </DropdownButton>
           <Button id="button">GENERATE REPORT</Button>
+
         </Col>
         <Col xs={9} id="col2">
           <div class="user-feedback-card">
@@ -67,6 +79,7 @@ function App() {
         </Col>
       </Row>
     </Container>
+
 
       <link
         rel="stylesheet"
