@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import ModalBoot from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import * as helper from './helper';
 
 class Modal extends Component {
     constructor(props, context) {
@@ -33,8 +34,11 @@ class Modal extends Component {
 
     // TODO
     handleSubmit() {
-        alert('df')
         console.log(this.state)
+        helper.addMessageToProject('Customer Portal', {
+            subject: this.state.formSubject,
+            body: this.state.formBody
+        })
     }
 
     handleChange = (event) => {

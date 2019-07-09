@@ -5,7 +5,7 @@ export function getMessage(id) {
 }
 
 export function getProjectMessages(projectId) {
-    return db.ref("projects/" + id);
+    return db.ref("projects/" + projectId);
 }
 
 export function getMessages() {
@@ -34,7 +34,7 @@ export function addMessageToProject(projectId, message) {
     let updates = {};
 
     let mKey = db.ref('messages').push().key;
-    message.put("timestamp", new Date().getTime());
+    message["timestamp"] = new Date().getTime();
 
     updates['messages/' + mKey] = message;
     updates['projects/' + projectId + "/" + mKey] = true;
