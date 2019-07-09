@@ -1,23 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import Navbar from './Navigation'
-import './App.css';
-import * as helper from './components/Firebase/helper'
+import './styles/App.css';
+
+import Filter from './components/Filter';
+import Report from './components/Report';
+import Navigation from './components/Navigation';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function App() {
-
   return (
-
     <div className="App">
-      <Navbar></Navbar>
-
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous"
-      />
-      <link rel="stylesheet" href="node_modules/lib/bootstrap2-toggle.css"></link>
+      <Navigation/>
+      <Container id="container">
+        <Row>
+          <Col xs={3} id="col1">
+            <Filter/>
+            <Report/>
+          </Col>
+          <Col xs={9} id="col2">
+            <div class="user-feedback-card">
+              card
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

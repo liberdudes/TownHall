@@ -3,11 +3,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-// import logo, { ReactComponent } from './logo.svg';
 import Toggle from 'react-toggle'
 import "react-toggle/style.css"
-import './Navigation.css';
 
 class Navigation extends Component {
     constructor() {
