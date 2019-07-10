@@ -1,11 +1,10 @@
 import React from 'react';
-
 import Filter from './components/Filter';
 import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
 import NewFeedbackButton from './components/NewFeedbackButton';
-
+import Modal from './components/Modal'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,8 +13,8 @@ class App extends React.Component {
   
   constructor(props) {
     super(props);
+    
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
-
     this.state = {
       isDevMode: false,
       feedback: [
@@ -54,10 +53,10 @@ class App extends React.Component {
       ]
     };
   }
-
-  handleDevModeChange(value) {
-    this.setState({isDevMode: value});
-  }
+  
+handleDevModeChange(value) {
+  this.setState({isDevMode: value});
+}
 
   render() {
     let uniqueProjects = [];
@@ -66,7 +65,6 @@ class App extends React.Component {
         uniqueProjects.push(feedback.project);
       }
     });
-    console.log(this.state);
 
     return (
       <div className="App">
@@ -86,7 +84,7 @@ class App extends React.Component {
                     {this.state.isDevMode ? (
                       <div></div>
                     ) : (
-                      <NewFeedbackButton/>
+                      <Modal />
                     )}  
                   </Col>
                 </Row>

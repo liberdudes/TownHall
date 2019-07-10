@@ -4,7 +4,9 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Toggle from 'react-toggle'
+import logo from '../icon.png'
 import "react-toggle/style.css"
+import '../styles/Navigation.css';
 
 class Navigation extends Component {
     constructor(props) {
@@ -21,27 +23,31 @@ class Navigation extends Component {
             <div className="Navbar">
                 <Navbar>
                     <Navbar.Brand href="#home" inline>
-                    {/* <img
+                    <img
                         src={logo}
-                        width="90"
-                        height="90"
+                        width="100"
+                        height="100"
                         className="d-inline-block align-top"
                         alt="logo"
-                    /> */}
-                    Logo
+                    />
+                    <h2 id = "span_text">Town Hall</h2>
                     </Navbar.Brand>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="justify-content-end" />
-                        <Button type="submit">Search</Button>
-                    </Form>            
+                        <Button class="search" type="submit">Search</Button>
+                    </Form>      
+                    
+                          
                     <Navbar.Collapse className="justify-content-end">                    
                         <label>
-                            <span>Dev</span>
+                            <span>User</span>
                             <Toggle
                                 defaultChecked={this.props.devMode}
                                 icons={false}
                                 onChange={this.handleChange} />
                         </label>
+                        <span>Dev</span>
+
                     </Navbar.Collapse>
                 </Navbar>
             </div>
