@@ -1,11 +1,10 @@
 import React from 'react';
-
 import Filter from './components/Filter';
 import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
 import NewFeedbackButton from './components/NewFeedbackButton';
-
+import Modal from './components/Modal'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -63,7 +62,7 @@ class App extends React.Component {
                   <Col xs={7}>
                   </Col>
                   <Col xs={5}>
-                    <NewFeedbackButton/>
+                    <Modal />
                   </Col>
                 </Row>
               </Container>
