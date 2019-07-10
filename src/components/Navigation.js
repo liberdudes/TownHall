@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Toggle from 'react-toggle'
-import Modal from './Modal'
 import logo from '../icon.png'
 import "react-toggle/style.css"
 import '../styles/Navigation.css';
@@ -40,7 +39,7 @@ class Navigation extends Component {
                         <Button class="search" type="submit">Search</Button>
                     </Form>      
                     
-                    <Modal />      
+                          
                     <Navbar.Collapse className="justify-content-end">                    
                         <label>
                             <span>User</span>
