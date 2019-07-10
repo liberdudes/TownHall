@@ -3,7 +3,6 @@ import Filter from './components/Filter';
 import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
-import NewFeedbackButton from './components/NewFeedbackButton';
 import Modal from './components/Modal'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
