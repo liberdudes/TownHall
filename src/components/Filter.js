@@ -46,12 +46,13 @@ class Filter extends React.Component {
             <Dropdown.Item href="#/action-1">
               All
             </Dropdown.Item>
-            <Dropdown.Item href="#/action-2">
-              Another action
-            </Dropdown.Item>
-            <Dropdown.Item href="#/action-3">
-              Something else
-            </Dropdown.Item>
+            {
+              this.props.projects.map((project) => {
+              return <Dropdown.Item href="">
+                      {project}
+                    </Dropdown.Item>
+              })
+            }
           </DropdownButton>
           </div>
         )

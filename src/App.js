@@ -14,8 +14,10 @@ class App extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = {
+    this.handleDevModeChange = this.handleDevModeChange.bind(this);
 
+    this.state = {
+      isDevMode: false,
       feedback: [
         {
           subject: "subject 1",
@@ -40,21 +42,39 @@ class App extends React.Component {
           description: "desc 3",
           votes: 15,
           date: "July 3, 2019"
+        },
+        {
+          subject: "subject 4",
+          project: "#CBA",
+          status: "Backlog",
+          description: "desc 4",
+          votes: 15,
+          date: "July 3, 2019"
         }
       ]
     };
   }
 
-  // let elements = [0, 0, 0];
+  handleDevModeChange(value) {
+    this.setState({isDevMode: value});
+  }
+
   render() {
-    let elements = [0, 0, 0];
+    let uniqueProjects = [];
+    this.state.feedback.map((feedback) => {
+      if (!uniqueProjects.includes(feedback.project)) {
+        uniqueProjects.push(feedback.project);
+      }
+    });
+    console.log(this.state);
+
     return (
       <div className="App">
-        <Navigation/>
+        <Navigation devMode={this.state.isDevMode} onDevModeChange={this.handleDevModeChange}/>
         <Container id="container">
           <Row>
             <Col xs={3} id="col1">
-              <Filter/>
+              <Filter projects={uniqueProjects}/>
               <Report/>
             </Col>
             <Col xs={9} id="col2">
@@ -63,7 +83,11 @@ class App extends React.Component {
                   <Col xs={7}>
                   </Col>
                   <Col xs={5}>
-                    <NewFeedbackButton/>
+                    {this.state.isDevMode ? (
+                      <div></div>
+                    ) : (
+                      <NewFeedbackButton/>
+                    )}  
                   </Col>
                 </Row>
               </Container>

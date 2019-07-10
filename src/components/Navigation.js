@@ -7,16 +7,14 @@ import Toggle from 'react-toggle'
 import "react-toggle/style.css"
 
 class Navigation extends Component {
-    constructor() {
-        super();
-        this.state = { toggleActive: false };
-        this.toggle = this.toggle.bind(this);
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    toggle() {
-        this.setState({ toggleActive: !this.state.toggleActive });
-        // alert(this.state.toggleActive)
-    }
+    handleChange(e) {
+        this.props.onDevModeChange(!this.props.devMode);
+    }    
 
     render() {
         return (
@@ -40,9 +38,9 @@ class Navigation extends Component {
                         <label>
                             <span>Dev</span>
                             <Toggle
-                                defaultChecked={this.state.toggleActive}
+                                defaultChecked={this.props.devMode}
                                 icons={false}
-                                onChange={this.toggle} />
+                                onChange={this.handleChange} />
                         </label>
                     </Navbar.Collapse>
                 </Navbar>
