@@ -9,41 +9,27 @@ import NewFeedbackButton from './components/NewFeedbackButton';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import * as helper from './components/helper';
 
 class App extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-
-      feedback: [
-        {
-          subject: "subject 1",
-          project: "#CIAT",
-          status: "In Progress",
-          description: "desc 1",
-          votes: 21,
-          date: "July 9, 2019"
-        },
-        {
-          subject: "subject 2",
-          project: "#ABC",
-          status: "Done",
-          description: "desc 2",
-          votes: 15,
-          date: "July 3, 2019"
-        },
-        {
-          subject: "subject 3",
-          project: "#CBA",
-          status: "Backlog",
-          description: "desc 3",
-          votes: 15,
-          date: "July 3, 2019"
-        }
-      ]
-    };
+      feedback: []
+    }
   }
+
+  async componentDidMount() {
+    let messages = await helper.getMessages();
+    console.log(messages.length);
+
+    await new Promise(resolve => { setTimeout(resolve, 2000); });
+
+    this.setState({feedback: messages})
+    console.log(this.state.feedback)
+  }
+
 
   // let elements = [0, 0, 0];
   render() {
@@ -68,9 +54,9 @@ class App extends React.Component {
                 </Row>
               </Container>
               <ul>
-                {this.state.feedback.map((userFeedback) => {
+                { (this.state.feedback.length != null)? this.state.feedback.map((userFeedback) => {
                   return <UserFeedbackCard feedback={userFeedback}/>
-                })}
+                }): null}
               </ul>
             </Col>
           </Row>
