@@ -3,6 +3,7 @@ import Filter from './components/Filter';
 import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
+import NewFeedbackButton from './components/NewFeedbackButton';
 import Modal from './components/Modal'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,8 +13,10 @@ class App extends React.Component {
   
   constructor(props) {
     super(props);
+    
+    this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.state = {
-
+      isDevMode: false,
       feedback: [
         {
           subject: "subject 1",
@@ -38,21 +41,38 @@ class App extends React.Component {
           description: "desc 3",
           votes: 15,
           date: "July 3, 2019"
+        },
+        {
+          subject: "subject 4",
+          project: "#CBA",
+          status: "Backlog",
+          description: "desc 4",
+          votes: 15,
+          date: "July 3, 2019"
         }
       ]
     };
   }
+  
+handleDevModeChange(value) {
+  this.setState({isDevMode: value});
+}
 
-  // let elements = [0, 0, 0];
   render() {
-    let elements = [0, 0, 0];
+    let uniqueProjects = [];
+    this.state.feedback.map((feedback) => {
+      if (!uniqueProjects.includes(feedback.project)) {
+        uniqueProjects.push(feedback.project);
+      }
+    });
+
     return (
       <div className="App">
-        <Navigation/>
+        <Navigation devMode={this.state.isDevMode} onDevModeChange={this.handleDevModeChange}/>
         <Container id="container">
           <Row>
             <Col xs={3} id="col1">
-              <Filter/>
+              <Filter projects={uniqueProjects}/>
               <Report/>
             </Col>
             <Col xs={9} id="col2">
@@ -61,7 +81,11 @@ class App extends React.Component {
                   <Col xs={7}>
                   </Col>
                   <Col xs={5}>
-                    <Modal />
+                    {this.state.isDevMode ? (
+                      <div></div>
+                    ) : (
+                      <Modal />
+                    )}  
                   </Col>
                 </Row>
               </Container>
