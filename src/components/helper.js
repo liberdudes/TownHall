@@ -34,28 +34,6 @@ export function getMessagesAfterDate(timestamp) {
     return list;
 }
 
-export function getMessages() {
-    let list = {}
-    db.ref("messages").on(snapshot => {
-        snapshot.forEach(snapshot => {
-            if (!snapshot.val().status.includes('closed')) {
-                list.put(snapshot.key, snapshot.val())
-            }
-        })
-    })
-    return list;
-}
-
-export function getMessagesAfterDate(timestamp) {
-    let list = {}
-    let map = getMessages()
-    map.forEach(val => {
-        if (map[val].timestamp > timestamp)
-            list.put(val, map[val])
-    })
-    return list;
-}
-
 export function addMessageToProject(projectId, message) {
     let updates = {};
 
