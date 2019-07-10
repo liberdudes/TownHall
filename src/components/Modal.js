@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import ModalBoot from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import * as helper from './helper';
 
 class Modal extends Component {
     constructor(props, context) {
@@ -20,7 +21,7 @@ class Modal extends Component {
 
     // TODO
     componentDidMount() {
-
+        this.setState({dropdownOptions: helper.getProjects()});
     }
   
     handleClose() {
@@ -31,10 +32,13 @@ class Modal extends Component {
       this.setState({ show: true });
     }
 
-    // TODO
-    handleSubmit() {
-        alert('df')
-        console.log(this.state)
+    handleSubmit(event) {
+        event.preventDefault();
+        helper.addMessageToProject('Customer Portal', {
+            subject: this.state.formSubject,
+            body: this.state.formBody
+        })
+        console.log(helper.getMessagesAfterDate(1562717130620))
     }
 
     handleChange = (event) => {
