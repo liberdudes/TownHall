@@ -21,7 +21,7 @@ class Modal extends Component {
 
     // TODO
     componentDidMount() {
-
+        this.setState({dropdownOptions: helper.getProjects()});
     }
   
     handleClose() {
@@ -32,13 +32,13 @@ class Modal extends Component {
       this.setState({ show: true });
     }
 
-    // TODO
-    handleSubmit() {
-        console.log(this.state)
+    handleSubmit(event) {
+        event.preventDefault();
         helper.addMessageToProject('Customer Portal', {
             subject: this.state.formSubject,
             body: this.state.formBody
         })
+        console.log(helper.getMessagesAfterDate(1562717130620))
     }
 
     handleChange = (event) => {

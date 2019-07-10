@@ -9,11 +9,11 @@ export function getProjectMessages(projectId) {
 }
 
 export function getMessages() {
-    let list = {}
-    db.ref("messages").on(snapshot => {
+    let list = {};
+    db.ref("messages").on('value',snapshot => {
         snapshot.forEach(snapshot => {
-            if (!snapshot.val().status.includes('closed')) {
-                list.put(snapshot.key, snapshot.val())
+            if (snapshot.val().status !== 'Closed') {
+                list[snapshot.key] = snapshot.val();
             }
         })
     })
@@ -21,11 +21,15 @@ export function getMessages() {
 }
 
 export function getMessagesAfterDate(timestamp) {
-    let list = {}
-    let map = getMessages()
-    map.forEach(val => {
-        if (map[val].timestamp > timestamp)
-            list.put(val, map[val])
+    let list = {};
+    db.ref("messages").on('value',snapshot => {
+        snapshot.forEach(snapshot => {
+            if (snapshot.val().status !== 'Closed') {
+                if (snapshot.val().timestamp > timestamp) {
+                    list[snapshot.key] = snapshot.val();
+                }
+            }
+        })
     })
     return list;
 }
@@ -35,6 +39,9 @@ export function addMessageToProject(projectId, message) {
 
     let mKey = db.ref('messages').push().key;
     message["timestamp"] = new Date().getTime();
+    message["status"] = "New";
+    message["upvote"] = 0;
+    message["downvote"] = 0;
 
     updates['messages/' + mKey] = message;
     updates['projects/' + projectId + "/" + mKey] = true;
@@ -71,5 +78,9 @@ export function updateMessageStatus(messageId, status) {
 }
 
 export function getProjects() {
-    return db.ref("projects");
+    let list = []
+    db.ref("projects").on('value',snapshot => {
+        list.push(snapshot.key)
+    });
+    return list;
 }
