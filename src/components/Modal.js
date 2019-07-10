@@ -4,6 +4,7 @@ import ModalBoot from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown'
 import * as helper from './helper';
+import '../styles/NewFeedbackButton.css';
 
 class Modal extends Component {
     constructor(props, context) {
@@ -63,7 +64,7 @@ class Modal extends Component {
 
         return (
         <>
-          <Button variant="primary" onClick={this.handleShow}>
+          <Button id="button-new" onClick={this.handleShow}>
             New Feedback
           </Button>
   

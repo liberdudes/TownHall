@@ -1,11 +1,18 @@
 import React from 'react';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
 import Filter from './components/Filter';
 import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
+<<<<<<< HEAD
 import NewFeedbackButton from './components/NewFeedbackButton';
 
+=======
+import Modal from './components/Modal'
+>>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -49,7 +56,8 @@ class App extends React.Component {
                   <Col xs={7}>
                   </Col>
                   <Col xs={5}>
-                    <NewFeedbackButton/>
+
+                    <Modal />
                   </Col>
                 </Row>
               </Container>
@@ -57,6 +65,7 @@ class App extends React.Component {
                 { (this.state.feedback.length != null)? this.state.feedback.map((userFeedback) => {
                   return <UserFeedbackCard feedback={userFeedback}/>
                 }): null}
+
               </ul>
             </Col>
           </Row>
