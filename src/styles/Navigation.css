@@ -1,0 +1,15 @@
+#span_text {
+    font-family: 'Roboto Slab', serif;
+    font-size: 40px;
+    font-weight: bold;
+    padding-right: 200px;
+    padding-left: 100px;
+    padding-bottom: 20px;
+    position: relative;
+    bottom: 50px;
+}
+
+#search{
+    padding-right: 20px;
+}
+
