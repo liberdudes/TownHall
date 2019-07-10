@@ -80,7 +80,9 @@ export function updateMessageStatus(messageId, status) {
 export function getProjects() {
     let list = []
     db.ref("projects").on('value',snapshot => {
-        list.push(snapshot.key)
+        snapshot.forEach(snapshot => {
+            list.push(snapshot.key)
+        })
     });
     return list;
 }

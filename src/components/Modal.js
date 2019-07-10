@@ -16,12 +16,11 @@ class Modal extends Component {
         show: false,
         formBody: "",
         formSubject: "",
-        dropdownOptions: ["option 1", "option 2"],
+        dropdownOptions: [],
         projectId: ""
       };
     }
 
-    // TODO
     componentDidMount() {
         this.setState({dropdownOptions: helper.getProjects()});
     }
@@ -36,7 +35,7 @@ class Modal extends Component {
   
     handleSubmit(event) {
         event.preventDefault();
-        helper.addMessageToProject('Customer Portal', {
+        helper.addMessageToProject(this.state.projectId, {
             subject: this.state.formSubject,
             body: this.state.formBody
         })
