@@ -16,13 +16,16 @@ class Filter extends React.Component {
             </h4>
             <DropdownButton variant="light" id="dropdown-basic-button" title="Last">
               <Dropdown.Item href="#/action-1">
-                Last Week
+                Today
               </Dropdown.Item>
               <Dropdown.Item href="#/action-2">
-                Another action
+                Last Week
                 </Dropdown.Item>
               <Dropdown.Item href="#/action-3">
-                Something else
+                Last Month
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-4">
+                All
               </Dropdown.Item>
             </DropdownButton>
             <h4 class="filter_headers_text">
@@ -33,10 +36,7 @@ class Filter extends React.Component {
                 Highest
               </Dropdown.Item>
               <Dropdown.Item href="#/action-2">
-                Another action
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-3">
-                Something else
+                Lowest
               </Dropdown.Item>
             </DropdownButton>
           <h4 class="filter_headers_text">
