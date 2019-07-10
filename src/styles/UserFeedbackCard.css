@@ -5,7 +5,7 @@
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     margin: 0 auto;
-
+    margin-bottom: 20px;
 }
 
 #col1-card {
@@ -48,6 +48,36 @@
     font-size: 18px;
     line-height: 21px;
     color: #9A8435;
+}
+
+#backlog-badge {
+    margin-top: 22.5px;
+    width: 128px;
+    height: 44px;
+    background-color: #E89595;
+    border-radius: 22px;
+    border: none;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #B73434;
+}
+
+#done-badge {
+    margin-top: 22.5px;
+    width: 128px;
+    height: 44px;
+    background-color: #A2ECA0;
+    border-radius: 22px;
+    border: none;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #609E5E;
 }
 
 #user-feedback-card-hr {
