@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import ModalBoot from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown'
 
 class Modal extends Component {
     constructor(props, context) {
@@ -14,7 +15,8 @@ class Modal extends Component {
         show: false,
         formBody: "",
         formSubject: "",
-        dropdownOptions: []
+        dropdownOptions: ["option 1", "option 2"],
+        projectId: ""
       };
     }
 
@@ -33,8 +35,8 @@ class Modal extends Component {
 
     // TODO
     handleSubmit() {
-        alert('df')
         console.log(this.state)
+        this.handleClose()
     }
 
     handleChange = (event) => {
@@ -42,9 +44,20 @@ class Modal extends Component {
           [event.target.id]: event.target.value
         });
     }
+
+    handleChangeDropdown = (event) => {
+        this.setState({
+          projectId: event.target.text
+        });
+    }
   
     render() {
-      return (
+
+        let optionItems = this.state.dropdownOptions.map((option) =>
+            <Dropdown.Item key={option} value={option}>{option}</Dropdown.Item>
+        );
+
+        return (
         <>
           <Button variant="primary" onClick={this.handleShow}>
             New Feedback
@@ -56,6 +69,7 @@ class Modal extends Component {
             </ModalBoot.Header>
             <ModalBoot.Body>
             <Form onSubmit={e => this.handleSubmit(e)}>
+
                 <Form.Group controlId="formSubject">
                     <Form.Label>Subject</Form.Label>
                     <Form.Control value={this.state.formSubject} type="text" placeholder="Subject" onChange={this.handleChange}/>
@@ -63,8 +77,22 @@ class Modal extends Component {
 
                 <Form.Group controlId="formBody">
                     <Form.Label>Body</Form.Label>
-                    <Form.Control value={this.state.formBody} type="text" placeholder="Body" onChange={this.handleChange}/>
+                    <Form.Control value={this.state.formBody} type="textarea" placeholder="Body" onChange={this.handleChange}/>
                 </Form.Group>
+
+                <Form.Group controlId="formDropdown">
+                    <Form.Label>Dropdown</Form.Label>
+                    <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Dropdown Button
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu onClick={this.handleChangeDropdown}>
+                        {optionItems}
+                    </Dropdown.Menu>
+                    </Dropdown>
+                </Form.Group>
+
                 <Button variant="primary" type="submit" >
                     Submit
                 </Button>
