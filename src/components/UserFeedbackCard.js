@@ -9,14 +9,13 @@ class Report extends React.Component {
     render() {
         const status = this.props.feedback.status;
         let output;
-<<<<<<< HEAD
+
         if (status === "New"){
             output = <button id="backlog-badge">
                 New
             </button>
         }
-=======
->>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
+
         if (status === "Backlog") {
             output = <button id="backlog-badge">
                         Backlog
@@ -54,11 +53,7 @@ class Report extends React.Component {
                     <Row>
                         <Col xs={8} id="col1-sub">
                             <p id="user-feedback-card-description">
-<<<<<<< HEAD
                                 {this.props.feedback.body}
-=======
-                                {this.props.feedback.description}
->>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
                             </p>
                         </Col>
                         <Col xs={4} id="col2-sub">
@@ -66,11 +61,8 @@ class Report extends React.Component {
                                 USER VOTES
                             </h5>
                             <p id="upvote-count">
-<<<<<<< HEAD
                                 {this.props.feedback.upvote}
-=======
-                                {this.props.feedback.votes}
->>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
+
                             </p>
                         </Col>
                     </Row>
@@ -84,11 +76,9 @@ class Report extends React.Component {
                         </Col>
                         <Col xs={4}>
                             <p id="user-feedback-card-date">
-<<<<<<< HEAD
+
                                 {this.props.feedback.timestamp}
-=======
-                                {this.props.feedback.date}
->>>>>>> 85c651cd51fb035c12d327f6199f993a4f2bfafc
+
                             </p>
                         </Col>
                     </Row>
