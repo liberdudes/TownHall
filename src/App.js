@@ -17,6 +17,7 @@ class App extends React.Component {
     
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
+    this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
 
     this.state = {
@@ -45,6 +46,14 @@ class App extends React.Component {
     this.setState({isDevMode: value});
   }
 
+  handleVotesFilterChange(value) {
+    if (value == null) {
+      this.setState({votesFilter: this.state.votesFilter});
+    } else {
+      this.setState({votesFilter: value});
+    }
+  }
+
   handleProjectFilterChange(value) {
     if (value == null) {
       this.setState({projectFilter: this.state.projectFilter});
@@ -61,6 +70,14 @@ class App extends React.Component {
         return subject.indexOf(search) !== -1;
       }
     );
+  }
+
+  filterFeedbackByVotes(collection, votes) {
+    if (votes == "Highest") {
+      return collection.sort((a, b) => b.upvote - a.upvote);
+    } else if (votes == "Lowest") {
+      return collection.sort((a, b) => a.upvote - b.upvote);
+    }
   }
 
   filterFeebackByProject(collection, project) {
@@ -85,6 +102,7 @@ class App extends React.Component {
 
     let filteredFeedback;
     filteredFeedback = this.filterFeedbackBySearch(this.state.feedbackCollection, this.state.search);
+    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
     filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
 
     return (
@@ -98,7 +116,9 @@ class App extends React.Component {
         <Container id="container">
           <Row>
             <Col xs={3} id="col1">
-              <Filter 
+              <Filter
+                votesFilter={this.state.votesFilter}
+                onVotesFilterChange={this.handleVotesFilterChange} 
                 projects={uniqueProjects}
                 projectFilter={this.state.projectFilter}
                 onProjectFilterChange={this.handleProjectFilterChange}
