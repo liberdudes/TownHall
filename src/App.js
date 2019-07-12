@@ -15,10 +15,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.state = {
      isDevMode: false,
-      feedback: []
+     search: '',
+      feedbackCollection: []
     }
   }
 
@@ -28,25 +30,47 @@ class App extends React.Component {
 
     await new Promise(resolve => { setTimeout(resolve, 2000); });
 
-    this.setState({feedback: messages})
-    console.log(this.state.feedback)
+    this.setState({feedbackCollection: messages})
+    console.log(this.state.feedbackCollection)
   }
   
-handleDevModeChange(value) {
-  this.setState({isDevMode: value});
-}
+  handleSearchChange(value) {
+    this.setState({search: value});
+  }
+    
+  handleDevModeChange(value) {
+    this.setState({isDevMode: value});
+  }
+
+  filterFeedbackBySearch(search) {
+    search = search.toLowerCase();
+    return this.state.feedbackCollection.filter(
+      (feedback) => {
+        let subject = feedback.subject.toLowerCase();
+        return subject.indexOf(search) !== -1;
+      }
+    );
+  }
 
   render() {
     let uniqueProjects = [];
-    this.state.feedback.map((feedback) => {
-      if (!uniqueProjects.includes(feedback.project)) {
-        uniqueProjects.push(feedback.project);
-      }
-    });
+    // this.state.feedbackCollection.map((feedbackCollection) => {
+    //   if (!uniqueProjects.includes(feedbackCollection.project)) {
+    //     uniqueProjects.push(feedbackCollection.project);
+    //   }
+    // });
+
+    let filteredFeedback = this.filterFeedbackBySearch(this.state.search);
+    console.log(filteredFeedback)
 
     return (
       <div className="App">
-        <Navigation devMode={this.state.isDevMode} onDevModeChange={this.handleDevModeChange}/>
+        <Navigation 
+          devMode={this.state.isDevMode} 
+          search={this.state.search}
+          onDevModeChange={this.handleDevModeChange}
+          onSearchChange={this.handleSearchChange}
+        />
         <Container id="container">
           <Row>
             <Col xs={3} id="col1">
@@ -60,7 +84,7 @@ handleDevModeChange(value) {
                   </Col>
                   <Col xs={5}>
                     {this.state.isDevMode ? (
-                      <div></div>
+                      <div>wow</div>
                     ) : (
                       <Modal />
                     )}
@@ -68,7 +92,7 @@ handleDevModeChange(value) {
                 </Row>
               </Container>
               <ul>
-                { (this.state.feedback.length != null)? this.state.feedback.map((userFeedback) => {
+                { (filteredFeedback.length != null)? filteredFeedback.map((userFeedback) => {
                   return <UserFeedbackCard feedback={userFeedback}/>
                 }): null}
 

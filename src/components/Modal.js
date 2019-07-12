@@ -65,7 +65,7 @@ class Modal extends Component {
         return (
         <>
           <Button id="button-new" onClick={this.handleShow}>
-            New Feedback
+            NEW FEEDBACK
           </Button>
   
           <ModalBoot show={this.state.show} onHide={this.handleClose}>

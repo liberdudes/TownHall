@@ -11,46 +11,51 @@ import '../styles/Navigation.css';
 class Navigation extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleDevModeChange = this.handleDevModeChange.bind(this);
     }
 
-    handleChange(e) {
+    handleSearchChange(e) {
+        this.props.onSearchChange(e.target.value.substr(0, 20));
+    }
+
+    handleDevModeChange(e) {
         this.props.onDevModeChange(!this.props.devMode);
     }    
 
     render() {
+        let toggleLabel;
+        if (this.props.devMode) {
+            toggleLabel = <span id="toggle-label">Dev</span>;
+        } else {
+            toggleLabel = <span id="toggle-label">User</span>;
+        }
         return (
-            <div className="Navbar">
-                <Navbar>
-                    <Navbar.Brand href="#home" inline>
-                    <img
-                        src={logo}
-                        width="100"
-                        height="100"
-                        className="d-inline-block align-top"
-                        alt="logo"
+            <Navbar id="navbar" bg="white">
+                <Navbar.Brand href="#home">
+                <img
+                    src={logo}
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                    alt="logo"
+                />
+                <span class="townhall_style" id="town_style">Town</span>
+                <span class="townhall_style" id="hall_style">Hall</span>
+                </Navbar.Brand>
+                <Form inline>
+                    <FormControl id="search" type="text" placeholder="Search Feedback" className="mr-sm-2" onChange={this.handleSearchChange} />
+                </Form>
+                <Navbar.Collapse className="justify-content-end">
+                    {toggleLabel}
+                    <Toggle
+                        defaultChecked={this.props.devMode}
+                        className="dev-toggle"
+                        icons={false}
+                        onChange={this.handleDevModeChange} 
                     />
-                    <h2 id = "span_text">Town Hall</h2>
-                    </Navbar.Brand>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="justify-content-end" />
-                        <Button class="search" type="submit">Search</Button>
-                    </Form>      
-                    
-                          
-                    <Navbar.Collapse className="justify-content-end">                    
-                        <label>
-                            <span>User</span>
-                            <Toggle
-                                defaultChecked={this.props.devMode}
-                                icons={false}
-                                onChange={this.handleChange} />
-                        </label>
-                        <span>Dev</span>
-
-                    </Navbar.Collapse>
-                </Navbar>
-            </div>
+                </Navbar.Collapse>
+            </Navbar>
         )
     }
 }
