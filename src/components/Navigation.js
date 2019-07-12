@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
 import Toggle from 'react-toggle'
 import logo from '../icon.png'
 import "react-toggle/style.css"

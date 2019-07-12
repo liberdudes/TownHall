@@ -17,21 +17,24 @@ class App extends React.Component {
     
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
+    this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
+
     this.state = {
-     isDevMode: false,
-     search: '',
+      isDevMode: false,
+      search: '',
+      dateFilter: 'All',
+      votesFilter: 'Highest',
+      projectFilter: 'All',
       feedbackCollection: []
     }
   }
 
   async componentDidMount() {
     let messages = await helper.getMessages();
-    console.log(messages.length);
 
-    await new Promise(resolve => { setTimeout(resolve, 2000); });
+    await new Promise(resolve => { setTimeout(resolve, 500); });
 
-    this.setState({feedbackCollection: messages})
-    console.log(this.state.feedbackCollection)
+    this.setState({feedbackCollection: messages});
   }
   
   handleSearchChange(value) {
@@ -42,9 +45,17 @@ class App extends React.Component {
     this.setState({isDevMode: value});
   }
 
-  filterFeedbackBySearch(search) {
+  handleProjectFilterChange(value) {
+    if (value == null) {
+      this.setState({projectFilter: this.state.projectFilter});
+    } else {
+      this.setState({projectFilter: value});
+    }
+  }
+
+  filterFeedbackBySearch(collection, search) {
     search = search.toLowerCase();
-    return this.state.feedbackCollection.filter(
+    return collection.filter(
       (feedback) => {
         let subject = feedback.subject.toLowerCase();
         return subject.indexOf(search) !== -1;
@@ -52,16 +63,29 @@ class App extends React.Component {
     );
   }
 
+  filterFeebackByProject(collection, project) {
+    if (project === "All") {
+      return collection;
+    } else {
+      return collection.filter(
+        (feedback) => {
+          return feedback.project === project;
+        }
+      )
+    }
+  }
+
   render() {
     let uniqueProjects = [];
-    // this.state.feedbackCollection.map((feedbackCollection) => {
-    //   if (!uniqueProjects.includes(feedbackCollection.project)) {
-    //     uniqueProjects.push(feedbackCollection.project);
-    //   }
-    // });
+    this.state.feedbackCollection.map((feedbackCollection) => {
+      if (!uniqueProjects.includes(feedbackCollection.project)) {
+        uniqueProjects.push(feedbackCollection.project);
+      }
+    });
 
-    let filteredFeedback = this.filterFeedbackBySearch(this.state.search);
-    console.log(filteredFeedback)
+    let filteredFeedback;
+    filteredFeedback = this.filterFeedbackBySearch(this.state.feedbackCollection, this.state.search);
+    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
 
     return (
       <div className="App">
@@ -74,7 +98,11 @@ class App extends React.Component {
         <Container id="container">
           <Row>
             <Col xs={3} id="col1">
-              <Filter projects={uniqueProjects}/>
+              <Filter 
+                projects={uniqueProjects}
+                projectFilter={this.state.projectFilter}
+                onProjectFilterChange={this.handleProjectFilterChange}
+              />
               <Report/>
             </Col>
             <Col xs={9} id="col2">
