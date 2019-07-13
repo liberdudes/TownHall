@@ -7,8 +7,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 class Filter extends React.Component {
   constructor(props) {
     super(props);
+    this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
+
+  }
+
+  handleDateFilterChange(e) {
+    this.props.onDateFilterChange(e.target.text);
   }
 
   handleVotesFilterChange(e) {
@@ -19,6 +25,8 @@ class Filter extends React.Component {
     this.props.onProjectFilterChange(e.target.text);
   }
 
+  
+
   render() {
     return (
       <div>
@@ -28,17 +36,22 @@ class Filter extends React.Component {
         <h4 class="filter_headers_text">
           Date
         </h4>
-        <DropdownButton variant="light" id="dropdown-basic-button" title="Last">
-          <Dropdown.Item href="#/action-1">
+        <DropdownButton 
+          variant="light" 
+          id="dropdown-basic-button" 
+          title={this.props.dateFilter}
+          onClick={this.handleDateFilterChange}
+        >
+          <Dropdown.Item key="Today" value="Today">
             Today
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-2">
-            Last Week
-            </Dropdown.Item>
-          <Dropdown.Item href="#/action-3">
-            Last Month
+          <Dropdown.Item key="This Week" value="This Week">
+            This Week
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-4">
+          <Dropdown.Item key="This Month" value="This Month">
+            This Month
+          </Dropdown.Item>
+          <Dropdown.Item key="All" value="All">
             All
           </Dropdown.Item>
         </DropdownButton>
