@@ -1,4 +1,5 @@
 import {db} from './firebase.js';
+import moment from 'moment'
 
 export function getMessage(id) {
     return db.ref("messages/" + id);
@@ -20,27 +21,11 @@ export async function getMessages() {
     return list
 }
 
-export function getMessagesAfterDate(timestamp) {
-    let list = {};
-    db.ref("messages").on('value',snapshot => {
-        snapshot.forEach(childsnap => {
-            if (childsnap.val().status !== 'Closed') {
-                if (childsnap.val().timestamp > timestamp) {
-                    list[childsnap.key] = childsnap.val();
-                }
-            }
-        })
-    })
-    return list;
-}
-
 export function addMessageToProject(projectId, message) {
     let updates = {};
 
     let mKey = db.ref('messages').push().key;
-    let time = new Date().getTime();
-    let date = new Date(time);
-    message["timestamp"] = date.toString();
+    message["timestamp"] = moment().valueOf();
     message["status"] = "New";
     message["upvote"] = 5;
     message["downvote"] = 0;
