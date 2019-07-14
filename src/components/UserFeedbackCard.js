@@ -4,9 +4,11 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import moment from 'moment';
 
 class Report extends React.Component {
     render() {
+        const formattedDate = moment(this.props.feedback.timestamp).format("MMMM Do YYYY, h:mm a");
         const status = this.props.feedback.status;
         let output;
 
@@ -76,9 +78,7 @@ class Report extends React.Component {
                         </Col>
                         <Col xs={4}>
                             <p id="user-feedback-card-date">
-
-                                {this.props.feedback.timestamp}
-
+                                {formattedDate}
                             </p>
                         </Col>
                     </Row>

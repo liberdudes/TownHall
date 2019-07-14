@@ -40,7 +40,6 @@ class Modal extends Component {
             subject: this.state.formSubject,
             body: this.state.formBody
         })
-        console.log(helper.getMessagesAfterDate(1562717130620))
         this.handleClose()
     }
 
@@ -80,16 +79,16 @@ class Modal extends Component {
                     <Form.Control value={this.state.formSubject} type="text" placeholder="Subject" onChange={this.handleChange}/>
                 </Form.Group>
 
-                 <Form.Group controlId="formBody">
-                    <Form.Label>Comment</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
+                <Form.Group controlId="formBody">
+                    <Form.Label>Body</Form.Label>
+                    <Form.Control value={this.state.formBody} type="textarea" placeholder="Body" onChange={this.handleChange}/>
                 </Form.Group>
 
                 <Form.Group controlId="formDropdown">
-                    <Form.Label>Select Project</Form.Label>
+                    <Form.Label>Dropdown</Form.Label>
                     <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Project
+                    Dropdown Button
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu onClick={this.handleChangeDropdown}>
