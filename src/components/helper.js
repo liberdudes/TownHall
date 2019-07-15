@@ -1,5 +1,5 @@
 import {db} from './firebase.js';
-import moment from 'moment'
+import moment from 'moment';
 
 export function getMessage(id) {
     return db.ref("messages/" + id);
