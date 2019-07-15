@@ -17,6 +17,7 @@ class Modal extends Component {
         show: false,
         formBody: "",
         formSubject: "",
+        formDropdown: "",
         dropdownOptions: [],
         projectId: ""
       };
@@ -54,6 +55,12 @@ class Modal extends Component {
           projectId: event.target.text
         });
     }
+
+    handleChangeSelect = (event) => {
+      this.setState({
+        projectId: event.target.text
+      });
+  }
   
     render() {
 
@@ -80,15 +87,14 @@ class Modal extends Component {
                 </Form.Group>
 
                 <Form.Group controlId="formBody">
-                    <Form.Label>Body</Form.Label>
-                    <Form.Control value={this.state.formBody} type="textarea" placeholder="Body" onChange={this.handleChange}/>
+                    <Form.Label>Comment</Form.Label>
+                    <Form.Control as="textarea" value={this.state.formBody}  rows="3" placeholder="Comment" onChange={this.handleChange}/>
                 </Form.Group>
 
                 <Form.Group controlId="formDropdown">
-                    <Form.Label>Dropdown</Form.Label>
+                    <Form.Label>Select Project</Form.Label>
                     <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
+                    <Dropdown.Toggle variant="success" value={this.state.formDropdown} placeholder="Drop Down" id="dropdown-basic" onChange={this.handleChangeSelect} >
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu onClick={this.handleChangeDropdown}>
