@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as helper from './components/helper';
+import moment from 'moment';
 
 class App extends React.Component {
   
@@ -81,16 +82,33 @@ class App extends React.Component {
     );
   }
 
-  filterFeedbackByDate(collection, votes) {
-    if (votes === "Today") {
-      return collection.sort((a, b) => b.timestamp - a.timestamp);
-    } else if (votes === "This Week") {
-      return collection.sort((a, b) => a.timestamp - b.timestamp);
-    } else if (votes === "This Month") {
-      return collection.sort((a, b) => a.timestamp - b.timestamp);
-    }
-      else if (votes === "All") {
+  filterFeedbackByDate(collection, date) {
+    if (date === "All") {
       return collection;
+    } else if (date === "Today") {
+        return collection.filter(
+          (feedback) => {
+            const feedbackDay = moment(feedback.timestamp);
+            const today = moment();
+            return feedbackDay.isSame(today, 'day');
+          }
+        )
+    } else if (date === "This Week") {
+        return collection.filter(
+          (feedback) => {
+            const feedbackDay = moment(feedback.timestamp);
+            const today = moment();
+            return feedbackDay.isSame(today, 'week');
+          }
+        )
+    } else if (date === "This Month") {
+        return collection.filter(
+          (feedback) => {
+            const feedbackDay = moment(feedback.timestamp);
+            const today = moment();
+            return feedbackDay.isSame(today, 'month');
+          }
+        )
     }
   }
 
@@ -141,8 +159,8 @@ class App extends React.Component {
             <Col xs={3} id="col1">
               <Filter
                 dateFilter={this.state.dateFilter}
+                onDateFilterChange={this.handleDateFilterChange}
                 votesFilter={this.state.votesFilter}
-                onDateFilterChange={this.handleDateFilterChange} 
                 onVotesFilterChange={this.handleVotesFilterChange} 
                 projects={uniqueProjects}
                 projectFilter={this.state.projectFilter}

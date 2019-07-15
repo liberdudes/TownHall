@@ -25,8 +25,6 @@ class Filter extends React.Component {
     this.props.onProjectFilterChange(e.target.text);
   }
 
-  
-
   render() {
     return (
       <div>
@@ -42,6 +40,9 @@ class Filter extends React.Component {
           title={this.props.dateFilter}
           onClick={this.handleDateFilterChange}
         >
+          <Dropdown.Item key="All" value="All">
+            All
+          </Dropdown.Item>
           <Dropdown.Item key="Today" value="Today">
             Today
           </Dropdown.Item>
@@ -50,9 +51,6 @@ class Filter extends React.Component {
           </Dropdown.Item>
           <Dropdown.Item key="This Month" value="This Month">
             This Month
-          </Dropdown.Item>
-          <Dropdown.Item key="All" value="All">
-            All
           </Dropdown.Item>
         </DropdownButton>
         <h4 class="filter_headers_text">
