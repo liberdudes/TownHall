@@ -17,6 +17,7 @@ class App extends React.Component {
     
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
+    this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
 
@@ -46,6 +47,14 @@ class App extends React.Component {
     this.setState({isDevMode: value});
   }
 
+  handleDateFilterChange(value) {
+    if (value == null) {
+      this.setState({dateFilter: this.state.dateFilter});
+    } else {
+      this.setState({dateFilter: value});
+    }
+  }
+
   handleVotesFilterChange(value) {
     if (value == null) {
       this.setState({votesFilter: this.state.votesFilter});
@@ -72,10 +81,23 @@ class App extends React.Component {
     );
   }
 
+  filterFeedbackByDate(collection, votes) {
+    if (votes === "Today") {
+      return collection.sort((a, b) => b.timestamp - a.timestamp);
+    } else if (votes === "This Week") {
+      return collection.sort((a, b) => a.timestamp - b.timestamp);
+    } else if (votes === "This Month") {
+      return collection.sort((a, b) => a.timestamp - b.timestamp);
+    }
+      else if (votes === "All") {
+      return collection;
+    }
+  }
+
   filterFeedbackByVotes(collection, votes) {
-    if (votes == "Highest") {
+    if (votes === "Highest") {
       return collection.sort((a, b) => b.upvote - a.upvote);
-    } else if (votes == "Lowest") {
+    } else if (votes === "Lowest") {
       return collection.sort((a, b) => a.upvote - b.upvote);
     }
   }
@@ -102,6 +124,7 @@ class App extends React.Component {
 
     let filteredFeedback;
     filteredFeedback = this.filterFeedbackBySearch(this.state.feedbackCollection, this.state.search);
+    filteredFeedback = this.filterFeedbackByDate(filteredFeedback, this.state.dateFilter);
     filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
     filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
 
@@ -117,7 +140,9 @@ class App extends React.Component {
           <Row>
             <Col xs={3} id="col1">
               <Filter
+                dateFilter={this.state.dateFilter}
                 votesFilter={this.state.votesFilter}
+                onDateFilterChange={this.handleDateFilterChange} 
                 onVotesFilterChange={this.handleVotesFilterChange} 
                 projects={uniqueProjects}
                 projectFilter={this.state.projectFilter}
