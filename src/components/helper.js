@@ -28,7 +28,6 @@ export function addMessageToProject(projectId, message) {
     message["timestamp"] = moment().valueOf();
     message["status"] = "New";
     message["upvote"] = 5;
-    message["downvote"] = 0;
     message["project"] = projectId;
     message["messageId"] = mKey;
 
@@ -52,7 +51,7 @@ export function downvoteMessage(messageId) {
     let updates = {};
 
     db.ref('messages/' + messageId).on('value', snapshot => {
-        updates['messages/' + messageId + '/downvote'] = snapshot.val().downvote + 1;
+        updates['messages/' + messageId + '/upvote'] = snapshot.val().upvote - 1;
     })
 
     db.ref().update(updates);

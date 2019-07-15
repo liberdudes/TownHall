@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Filter from './components/Filter';
-import Report from './components/Report';
 import Navigation from './components/Navigation';
 import UserFeedbackCard from './components/UserFeedbackCard';
 import Modal from './components/Modal'
@@ -141,10 +140,10 @@ class App extends React.Component {
     });
 
     let filteredFeedback;
-    filteredFeedback = this.filterFeedbackBySearch(this.state.feedbackCollection, this.state.search);
-    filteredFeedback = this.filterFeedbackByDate(filteredFeedback, this.state.dateFilter);
+    filteredFeedback = this.filterFeedbackByDate(this.state.feedbackCollection, this.state.dateFilter);
     filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
     filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
+    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
 
     return (
       <div className="App">
@@ -166,7 +165,6 @@ class App extends React.Component {
                 projectFilter={this.state.projectFilter}
                 onProjectFilterChange={this.handleProjectFilterChange}
               />
-              <Report/>
             </Col>
             <Col xs={9} id="col2">
               <Container>
