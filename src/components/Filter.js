@@ -1,8 +1,8 @@
-import '../styles/Filter.css';
+import "../styles/Filter.css";
 
-import React from 'react';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React from "react";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class Filter extends React.Component {
   constructor(props) {
@@ -32,15 +32,11 @@ class Filter extends React.Component {
   render() {
     return (
       <div>
-        <h2 id="filter_text">
-          Filter
-        </h2>
-        <h4 className="filter_headers_text">
-          Date
-        </h4>
-        <DropdownButton 
-          variant="light" 
-          id="dropdown-basic-button" 
+        <h2 id="filter_text">Filter</h2>
+        <h4 className="filter_headers_text">Date</h4>
+        <DropdownButton
+          variant="light"
+          id="dropdown-basic-button"
           title={this.props.dateFilter}
           onClick={this.handleDateFilterChange}
         >
@@ -57,12 +53,10 @@ class Filter extends React.Component {
             This Month
           </Dropdown.Item>
         </DropdownButton>
-        <h4 className="filter_headers_text">
-          Votes
-        </h4>
-        <DropdownButton 
-          variant="light" 
-          id="dropdown-basic-button" 
+        <h4 className="filter_headers_text">Votes</h4>
+        <DropdownButton
+          variant="light"
+          id="dropdown-basic-button"
           title={this.props.votesFilter}
           onClick={this.handleVotesFilterChange}
         >
@@ -73,30 +67,26 @@ class Filter extends React.Component {
             Lowest
           </Dropdown.Item>
         </DropdownButton>
-      <h4 className="filter_headers_text">
-        Project
-      </h4>
-      <DropdownButton 
-        variant="light" 
-        id="dropdown-basic-button" 
-        title={this.props.projectFilter}
-        onClick={this.handleProjectFilterChange}
-      >
-        <Dropdown.Item>
-          All
-        </Dropdown.Item>
-          {
-            this.props.projects.map((project) => {
-              return <Dropdown.Item key={project} value={project}>{project}</Dropdown.Item>
-            })
-          }
-      </DropdownButton>
-      <h4 className="filter_headers_text">
-          Status
-        </h4>
-        <DropdownButton 
-          variant="light" 
-          id="dropdown-basic-button" 
+        <h4 className="filter_headers_text">Project</h4>
+        <DropdownButton
+          variant="light"
+          id="dropdown-basic-button"
+          title={this.props.projectFilter}
+          onClick={this.handleProjectFilterChange}
+        >
+          <Dropdown.Item>All</Dropdown.Item>
+          {this.props.projects.map(project => {
+            return (
+              <Dropdown.Item key={project} value={project}>
+                {project}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <h4 className="filter_headers_text">Status</h4>
+        <DropdownButton
+          variant="light"
+          id="dropdown-basic-button"
           title={this.props.statusFilter}
           onClick={this.handleStatusFilterChange}
         >
@@ -116,8 +106,8 @@ class Filter extends React.Component {
             Closed
           </Dropdown.Item>
         </DropdownButton>
-    </div>
-    )
+      </div>
+    );
   }
 }
 

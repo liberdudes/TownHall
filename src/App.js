@@ -68,7 +68,7 @@ class App extends React.Component {
     );
     this.setState({ feedbackCollection: feedbackCopyWithDeletedElement });
 
-    //TODO: write deleteFeedback(messageId) in helper.js and call it here
+    //TODO: write deleteMessage(messageId) in helper.js and call it here
   }
 
   handleSearchChange(value) {

@@ -1,6 +1,10 @@
 import { db } from "./firebase.js";
 import moment from "moment";
 
+export function deleteMessage(messageId) {
+  //TODO
+}
+
 export function getMessage(id) {
   return db.ref("messages/" + id);
 }
