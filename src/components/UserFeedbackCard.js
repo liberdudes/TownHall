@@ -13,28 +13,27 @@ class Report extends React.Component {
         let output;
 
         if (status === "New"){
-            output = <button id="backlog-badge">
-                New
-            </button>
-        }
-
-        if (status === "Backlog") {
-            output = <button id="backlog-badge">
-                        Backlog
+            output = <button id="new-badge" disabled={true}>
+                        New
                     </button>
         }
         if (status === "In Progress") {
-            output = <button id="in-progress-badge">
+            output = <button id="in-progress-badge" disabled={true}>
                         In Progress
                     </button>
         } 
-        if (status === "Done") {
-            output = <button id="done-badge">
-                        Done
+        if (status === "Completed") {
+            output = <button id="completed-badge" disabled={true}>
+                        Completed
+                    </button>
+        }
+        if (status === "Closed") {
+            output = <button id="closed-badge" disabled={true}>
+                        Closed
                     </button>
         }
         return (
-            <div class="user-feedback-card">
+            <div className="user-feedback-card">
                 <Container>
                     <Row>
                         <Col xs={9} id="col1-card">
