@@ -98,6 +98,16 @@ class App extends React.Component {
     }
   }
 
+  setupFilters(collection) {
+    let filteredFeedback;
+    filteredFeedback = this.filterFeedbackByDate(collection, this.state.dateFilter);
+    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
+    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
+    filteredFeedback = this.filterFeedbackByStatus(filteredFeedback, this.state.statusFilter);
+    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
+    return filteredFeedback;
+  }
+
   filterFeedbackBySearch(collection, search) {
     search = search.toLowerCase();
     return collection.filter(
@@ -188,20 +198,19 @@ class App extends React.Component {
    }
   }
 
-  render() {
+  getUniqueProjects() {
     let uniqueProjects = [];
     this.state.feedbackCollection.forEach((feedbackCollection) => {
       if (!uniqueProjects.includes(feedbackCollection.project)) {
         uniqueProjects.push(feedbackCollection.project);
       }
     });
+    return uniqueProjects;
+  }
 
-    let filteredFeedback;
-    filteredFeedback = this.filterFeedbackByDate(this.state.feedbackCollection, this.state.dateFilter);
-    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
-    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
-    filteredFeedback = this.filterFeedbackByStatus(filteredFeedback, this.state.statusFilter);
-    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
+  render() {
+    let uniqueProjects = this.getUniqueProjects();
+    let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
 
     return (
       <div className="App">
