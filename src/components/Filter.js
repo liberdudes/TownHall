@@ -31,7 +31,7 @@ class Filter extends React.Component {
         <h2 id="filter_text">
           Filter
         </h2>
-        <h4 class="filter_headers_text">
+        <h4 className="filter_headers_text">
           Date
         </h4>
         <DropdownButton 
@@ -53,7 +53,7 @@ class Filter extends React.Component {
             This Month
           </Dropdown.Item>
         </DropdownButton>
-        <h4 class="filter_headers_text">
+        <h4 className="filter_headers_text">
           Votes
         </h4>
         <DropdownButton 
@@ -69,7 +69,7 @@ class Filter extends React.Component {
             Lowest
           </Dropdown.Item>
         </DropdownButton>
-      <h4 class="filter_headers_text">
+      <h4 className="filter_headers_text">
         Project
       </h4>
       <DropdownButton 

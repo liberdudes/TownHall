@@ -2,8 +2,9 @@ import React from 'react';
 
 import Filter from './components/Filter';
 import Navigation from './components/Navigation';
+import FeedbackTable from './components/FeedbackTable';
 import UserFeedbackCard from './components/UserFeedbackCard';
-import Modal from './components/Modal'
+import Modal from './components/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,6 +16,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     
+    this.updateFeedbackCollection = this.updateFeedbackCollection.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -37,6 +40,25 @@ class App extends React.Component {
     await new Promise(resolve => { setTimeout(resolve, 500); });
 
     this.setState({feedbackCollection: messages});
+  }
+
+  updateFeedbackCollection(value) {
+    this.setState({feedbackCollection: value});
+  }
+
+  handleStatusChange(messageId, value) {
+    let feedbackCopy = this.state.feedbackCollection.slice(0);
+    for (let i = 0; i < feedbackCopy.length; i++) {
+      if (feedbackCopy[i].messageId === messageId) {
+        if (value == null) {
+          this.setState({feedbackCollection: this.state.feedbackCollection});
+        } else {
+          feedbackCopy[i].status = value;
+          this.setState({feedbackCollection: feedbackCopy});
+          helper.updateMessageStatus(messageId, value);
+        }
+      }
+    }
   }
   
   handleSearchChange(value) {
@@ -133,7 +155,7 @@ class App extends React.Component {
 
   render() {
     let uniqueProjects = [];
-    this.state.feedbackCollection.map((feedbackCollection) => {
+    this.state.feedbackCollection.forEach((feedbackCollection) => {
       if (!uniqueProjects.includes(feedbackCollection.project)) {
         uniqueProjects.push(feedbackCollection.project);
       }
@@ -153,7 +175,16 @@ class App extends React.Component {
           onDevModeChange={this.handleDevModeChange}
           onSearchChange={this.handleSearchChange}
         />
-        <Container id="container">
+        {this.state.isDevMode ? (
+          <div>
+            <FeedbackTable 
+              feedbackCollection={this.state.feedbackCollection} 
+              onStatusChange={this.handleStatusChange}
+              updateFeedbackCollection={this.updateFeedbackCollection}
+            />
+          </div>
+        ) : (
+          <Container id="container">
           <Row>
             <Col xs={3} id="col1">
               <Filter
@@ -172,23 +203,26 @@ class App extends React.Component {
                   <Col xs={7}>
                   </Col>
                   <Col xs={5}>
-                    {this.state.isDevMode ? (
-                      <div>wow</div>
-                    ) : (
-                      <Modal />
-                    )}
+                    <Modal />
                   </Col>
                 </Row>
               </Container>
               <ul>
-                { (filteredFeedback.length != null)? filteredFeedback.map((userFeedback) => {
-                  return <UserFeedbackCard feedback={userFeedback}/>
-                }): null}
-
+                {filteredFeedback.length != null ? (
+                  filteredFeedback.map((userFeedback) => {
+                    return <UserFeedbackCard 
+                              feedback={userFeedback}
+                              key={userFeedback.messageId}
+                            />
+                  })
+                ) : 
+                  null
+                }
               </ul>
             </Col>
           </Row>
         </Container>
+        )}
       </div>
     );
   }

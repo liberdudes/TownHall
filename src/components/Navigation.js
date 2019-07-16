@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
-import Toggle from 'react-toggle'
-import logo from '../icon.png'
+import Toggle from 'react-toggle';
+import logo from '../icon.png';
 import "react-toggle/style.css"
 import '../styles/Navigation.css';
 
@@ -39,8 +39,8 @@ class Navigation extends Component {
                     className="d-inline-block align-top"
                     alt="logo"
                 />
-                <span class="townhall_style" id="town_style">Town</span>
-                <span class="townhall_style" id="hall_style">Hall</span>
+                <span className="townhall_style" id="town_style">Town</span>
+                <span className="townhall_style" id="hall_style">Hall</span>
                 </Navbar.Brand>
                 <Form inline>
                     <FormControl id="search" type="text" placeholder="Search Feedback" className="mr-sm-2" onChange={this.handleSearchChange} />
