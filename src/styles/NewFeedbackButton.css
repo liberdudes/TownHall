@@ -1,14 +1,14 @@
 #button-new {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
-    height: 60px;
-    /* identical to box height */
-    letter-spacing: 0.025em;
-    background: #2E5876;
-    border-radius: 8px;
-    border-color: #2E5876;
-    margin-bottom: 20px;
-    margin-left: 62px;
-  }
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  height: 60px;
+  /* identical to box height */
+  letter-spacing: 0.025em;
+  background: #2e5876;
+  border-radius: 8px;
+  border-color: #2e5876;
+  margin-bottom: 20px;
+  margin-left: 62px;
+}
