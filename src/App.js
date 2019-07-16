@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import Filter from './components/Filter';
-import Navigation from './components/Navigation';
-import FeedbackTable from './components/FeedbackTable';
-import UserFeedbackCard from './components/UserFeedbackCard';
-import Modal from './components/Modal';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import * as helper from './components/helper';
-import moment from 'moment';
+import Filter from "./components/Filter";
+import Navigation from "./components/Navigation";
+import FeedbackTable from "./components/FeedbackTable";
+import UserFeedbackCard from "./components/UserFeedbackCard";
+import Modal from "./components/Modal";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import * as helper from "./components/helper";
+import moment from "moment";
 
 class App extends React.Component {
-  
   constructor(props) {
     super(props);
-    
+
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleFeedbackDelete = this.handleFeedbackDelete.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -26,21 +26,23 @@ class App extends React.Component {
 
     this.state = {
       isDevMode: false,
-      search: '',
-      dateFilter: 'All',
-      votesFilter: 'Highest',
-      projectFilter: 'All',
-      statusFilter: 'All',
+      search: "",
+      dateFilter: "All",
+      votesFilter: "Highest",
+      projectFilter: "All",
+      statusFilter: "All",
       feedbackCollection: []
-    }
+    };
   }
 
   async componentDidMount() {
     let messages = await helper.getMessages();
 
-    await new Promise(resolve => { setTimeout(resolve, 500); });
+    await new Promise(resolve => {
+      setTimeout(resolve, 500);
+    });
 
-    this.setState({feedbackCollection: messages});
+    this.setState({ feedbackCollection: messages });
   }
 
   handleStatusChange(messageId, value) {
@@ -48,103 +50,121 @@ class App extends React.Component {
     for (let i = 0; i < feedbackCopy.length; i++) {
       if (feedbackCopy[i].messageId === messageId) {
         if (value == null) {
-          this.setState({feedbackCollection: this.state.feedbackCollection});
+          this.setState({ feedbackCollection: this.state.feedbackCollection });
         } else {
           feedbackCopy[i].status = value;
-          this.setState({feedbackCollection: feedbackCopy});
+          this.setState({ feedbackCollection: feedbackCopy });
           helper.updateMessageStatus(messageId, value);
         }
       }
     }
   }
-  
-  handleSearchChange(value) {
-    this.setState({search: value});
+
+  handleFeedbackDelete(messageId) {
+    let feedbackCopyWithDeletedElement = this.state.feedbackCollection.filter(
+      feedback => {
+        return feedback.messageId !== messageId;
+      }
+    );
+    this.setState({ feedbackCollection: feedbackCopyWithDeletedElement });
+
+    //TODO: write deleteFeedback(messageId) in helper.js and call it here
   }
-    
+
+  handleSearchChange(value) {
+    this.setState({ search: value });
+  }
+
   handleDevModeChange(value) {
-    this.setState({isDevMode: value});
+    this.setState({ isDevMode: value });
   }
 
   handleDateFilterChange(value) {
     if (value == null) {
-      this.setState({dateFilter: this.state.dateFilter});
+      this.setState({ dateFilter: this.state.dateFilter });
     } else {
-      this.setState({dateFilter: value});
+      this.setState({ dateFilter: value });
     }
   }
 
   handleVotesFilterChange(value) {
     if (value == null) {
-      this.setState({votesFilter: this.state.votesFilter});
+      this.setState({ votesFilter: this.state.votesFilter });
     } else {
-      this.setState({votesFilter: value});
+      this.setState({ votesFilter: value });
     }
   }
 
   handleProjectFilterChange(value) {
     if (value == null) {
-      this.setState({projectFilter: this.state.projectFilter});
+      this.setState({ projectFilter: this.state.projectFilter });
     } else {
-      this.setState({projectFilter: value});
+      this.setState({ projectFilter: value });
     }
   }
 
   handleStatusFilterChange(value) {
     if (value == null) {
-      this.setState({statusFilter: this.state.statusFilter});
+      this.setState({ statusFilter: this.state.statusFilter });
     } else {
-      this.setState({statusFilter: value});
+      this.setState({ statusFilter: value });
     }
   }
 
   setupFilters(collection) {
     let filteredFeedback;
-    filteredFeedback = this.filterFeedbackByDate(collection, this.state.dateFilter);
-    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
-    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
-    filteredFeedback = this.filterFeedbackByStatus(filteredFeedback, this.state.statusFilter);
-    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
+    filteredFeedback = this.filterFeedbackByDate(
+      collection,
+      this.state.dateFilter
+    );
+    filteredFeedback = this.filterFeedbackByVotes(
+      filteredFeedback,
+      this.state.votesFilter
+    );
+    filteredFeedback = this.filterFeebackByProject(
+      filteredFeedback,
+      this.state.projectFilter
+    );
+    filteredFeedback = this.filterFeedbackByStatus(
+      filteredFeedback,
+      this.state.statusFilter
+    );
+    filteredFeedback = this.filterFeedbackBySearch(
+      filteredFeedback,
+      this.state.search
+    );
     return filteredFeedback;
   }
 
   filterFeedbackBySearch(collection, search) {
     search = search.toLowerCase();
-    return collection.filter(
-      (feedback) => {
-        let subject = feedback.subject.toLowerCase();
-        return subject.indexOf(search) !== -1;
-      }
-    );
+    return collection.filter(feedback => {
+      let subject = feedback.subject.toLowerCase();
+      return subject.indexOf(search) !== -1;
+    });
   }
 
   filterFeedbackByDate(collection, date) {
     if (date === "All") {
       return collection;
     } else if (date === "Today") {
-        return collection.filter(
-          (feedback) => {
-            const feedbackDay = moment(feedback.timestamp);
-            const today = moment();
-            return feedbackDay.isSame(today, 'day');
-          }
-        )
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "day");
+      });
     } else if (date === "This Week") {
-        return collection.filter(
-          (feedback) => {
-            const feedbackDay = moment(feedback.timestamp);
-            const today = moment();
-            return feedbackDay.isSame(today, 'week');
-          }
-        )
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "week");
+      });
     } else if (date === "This Month") {
-        return collection.filter(
-          (feedback) => {
-            const feedbackDay = moment(feedback.timestamp);
-            const today = moment();
-            return feedbackDay.isSame(today, 'month');
-          }
-        )
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "month");
+      });
     }
   }
 
@@ -160,47 +180,37 @@ class App extends React.Component {
     if (project === "All") {
       return collection;
     } else {
-      return collection.filter(
-        (feedback) => {
-          return feedback.project === project;
-        }
-      )
+      return collection.filter(feedback => {
+        return feedback.project === project;
+      });
     }
   }
 
   filterFeedbackByStatus(collection, status) {
-   if (status === "All") {
-     return collection;
-   } else if (status === "New") {
-      return collection.filter(
-        (feedback) => {
-          return feedback.status === status;
-        }
-      )
-   } else if (status === "In Progress") {
-      return collection.filter(
-        (feedback) => {
-          return feedback.status === status;
-        }
-      )
-   } else if (status === "Completed") {
-      return collection.filter(
-        (feedback) => {
-          return feedback.status === status;
-        }
-      )
-   } else if (status === "Closed") {
-      return collection.filter(
-        (feedback) => {
-          return feedback.status === status;
-        }
-      )
-   }
+    if (status === "All") {
+      return collection;
+    } else if (status === "New") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "In Progress") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "Completed") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "Closed") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    }
   }
 
   getUniqueProjects() {
     let uniqueProjects = [];
-    this.state.feedbackCollection.forEach((feedbackCollection) => {
+    this.state.feedbackCollection.forEach(feedbackCollection => {
       if (!uniqueProjects.includes(feedbackCollection.project)) {
         uniqueProjects.push(feedbackCollection.project);
       }
@@ -214,61 +224,64 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Navigation 
-          devMode={this.state.isDevMode} 
+        <Navigation
+          devMode={this.state.isDevMode}
           search={this.state.search}
           onDevModeChange={this.handleDevModeChange}
           onSearchChange={this.handleSearchChange}
         />
         {this.state.isDevMode ? (
-          <div>
-            <FeedbackTable 
-              feedbackCollection={this.state.feedbackCollection} 
-              onStatusChange={this.handleStatusChange}
-              updateFeedbackCollection={this.updateFeedbackCollection}
-            />
-          </div>
+          <Container>
+            <Row>
+              <Col xs={8}>
+                <FeedbackTable
+                  feedbackCollection={this.state.feedbackCollection}
+                  onStatusChange={this.handleStatusChange}
+                  onFeedbackDelete={this.handleFeedbackDelete}
+                />
+              </Col>
+            </Row>
+          </Container>
         ) : (
           <Container id="container">
-          <Row>
-            <Col xs={3} id="col1">
-              <Filter
-                dateFilter={this.state.dateFilter}
-                onDateFilterChange={this.handleDateFilterChange}
-                votesFilter={this.state.votesFilter}
-                onVotesFilterChange={this.handleVotesFilterChange} 
-                projects={uniqueProjects}
-                projectFilter={this.state.projectFilter}
-                onProjectFilterChange={this.handleProjectFilterChange}
-                statusFilter={this.state.statusFilter}
-                onStatusFilterChange={this.handleStatusFilterChange}
-              />
-            </Col>
-            <Col xs={9} id="col2">
-              <Container>
-                <Row>
-                  <Col xs={7}>
-                  </Col>
-                  <Col xs={5}>
-                    <Modal />
-                  </Col>
-                </Row>
-              </Container>
-              <ul>
-                {filteredFeedback.length != null ? (
-                  filteredFeedback.map((userFeedback) => {
-                    return <UserFeedbackCard 
-                              feedback={userFeedback}
-                              key={userFeedback.messageId}
-                            />
-                  })
-                ) : 
-                  null
-                }
-              </ul>
-            </Col>
-          </Row>
-        </Container>
+            <Row>
+              <Col xs={3} id="col1">
+                <Filter
+                  dateFilter={this.state.dateFilter}
+                  onDateFilterChange={this.handleDateFilterChange}
+                  votesFilter={this.state.votesFilter}
+                  onVotesFilterChange={this.handleVotesFilterChange}
+                  projects={uniqueProjects}
+                  projectFilter={this.state.projectFilter}
+                  onProjectFilterChange={this.handleProjectFilterChange}
+                  statusFilter={this.state.statusFilter}
+                  onStatusFilterChange={this.handleStatusFilterChange}
+                />
+              </Col>
+              <Col xs={9} id="col2">
+                <Container>
+                  <Row>
+                    <Col xs={7} />
+                    <Col xs={5}>
+                      <Modal />
+                    </Col>
+                  </Row>
+                </Container>
+                <ul>
+                  {filteredFeedback.length != null
+                    ? filteredFeedback.map(userFeedback => {
+                        return (
+                          <UserFeedbackCard
+                            feedback={userFeedback}
+                            key={userFeedback.messageId}
+                          />
+                        );
+                      })
+                    : null}
+                </ul>
+              </Col>
+            </Row>
+          </Container>
         )}
       </div>
     );
