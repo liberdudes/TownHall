@@ -1,4 +1,4 @@
-import {db} from './firebase.js';
+import {db} from './components/firebase.js';
 import moment from 'moment';
 
 export function getMessage(id) {

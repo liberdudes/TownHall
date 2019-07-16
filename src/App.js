@@ -8,7 +8,7 @@ import Modal from './components/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import * as helper from './components/helper';
+import * as helper from './helper';
 import moment from 'moment';
 
 class App extends React.Component {
