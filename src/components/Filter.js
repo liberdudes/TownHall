@@ -10,7 +10,7 @@ class Filter extends React.Component {
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
-
+    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
   }
 
   handleDateFilterChange(e) {
@@ -23,6 +23,10 @@ class Filter extends React.Component {
 
   handleProjectFilterChange(e) {
     this.props.onProjectFilterChange(e.target.text);
+  }
+
+  handleStatusFilterChange(e) {
+    this.props.onStatusFilterChange(e.target.text);
   }
 
   render() {
@@ -86,8 +90,33 @@ class Filter extends React.Component {
               return <Dropdown.Item key={project} value={project}>{project}</Dropdown.Item>
             })
           }
+      </DropdownButton>
+      <h4 className="filter_headers_text">
+          Status
+        </h4>
+        <DropdownButton 
+          variant="light" 
+          id="dropdown-basic-button" 
+          title={this.props.statusFilter}
+          onClick={this.handleStatusFilterChange}
+        >
+          <Dropdown.Item key="All" value="All">
+            All
+          </Dropdown.Item>
+          <Dropdown.Item key="New" value="New">
+            New
+          </Dropdown.Item>
+          <Dropdown.Item key="In Progress" value="In Progress">
+            In Progress
+          </Dropdown.Item>
+          <Dropdown.Item key="Completed" value="Completed">
+            Completed
+          </Dropdown.Item>
+          <Dropdown.Item key="Closed" value="Closed">
+            Closed
+          </Dropdown.Item>
         </DropdownButton>
-      </div>
+    </div>
     )
   }
 }

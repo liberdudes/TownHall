@@ -16,13 +16,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     
-    this.updateFeedbackCollection = this.updateFeedbackCollection.bind(this);
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
+    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
 
     this.state = {
       isDevMode: false,
@@ -30,6 +30,7 @@ class App extends React.Component {
       dateFilter: 'All',
       votesFilter: 'Highest',
       projectFilter: 'All',
+      statusFilter: 'All',
       feedbackCollection: []
     }
   }
@@ -40,10 +41,6 @@ class App extends React.Component {
     await new Promise(resolve => { setTimeout(resolve, 500); });
 
     this.setState({feedbackCollection: messages});
-  }
-
-  updateFeedbackCollection(value) {
-    this.setState({feedbackCollection: value});
   }
 
   handleStatusChange(messageId, value) {
@@ -91,6 +88,24 @@ class App extends React.Component {
     } else {
       this.setState({projectFilter: value});
     }
+  }
+
+  handleStatusFilterChange(value) {
+    if (value == null) {
+      this.setState({statusFilter: this.state.statusFilter});
+    } else {
+      this.setState({statusFilter: value});
+    }
+  }
+
+  setupFilters(collection) {
+    let filteredFeedback;
+    filteredFeedback = this.filterFeedbackByDate(collection, this.state.dateFilter);
+    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
+    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
+    filteredFeedback = this.filterFeedbackByStatus(filteredFeedback, this.state.statusFilter);
+    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
+    return filteredFeedback;
   }
 
   filterFeedbackBySearch(collection, search) {
@@ -153,19 +168,49 @@ class App extends React.Component {
     }
   }
 
-  render() {
+  filterFeedbackByStatus(collection, status) {
+   if (status === "All") {
+     return collection;
+   } else if (status === "New") {
+      return collection.filter(
+        (feedback) => {
+          return feedback.status === status;
+        }
+      )
+   } else if (status === "In Progress") {
+      return collection.filter(
+        (feedback) => {
+          return feedback.status === status;
+        }
+      )
+   } else if (status === "Completed") {
+      return collection.filter(
+        (feedback) => {
+          return feedback.status === status;
+        }
+      )
+   } else if (status === "Closed") {
+      return collection.filter(
+        (feedback) => {
+          return feedback.status === status;
+        }
+      )
+   }
+  }
+
+  getUniqueProjects() {
     let uniqueProjects = [];
     this.state.feedbackCollection.forEach((feedbackCollection) => {
       if (!uniqueProjects.includes(feedbackCollection.project)) {
         uniqueProjects.push(feedbackCollection.project);
       }
     });
+    return uniqueProjects;
+  }
 
-    let filteredFeedback;
-    filteredFeedback = this.filterFeedbackByDate(this.state.feedbackCollection, this.state.dateFilter);
-    filteredFeedback = this.filterFeedbackByVotes(filteredFeedback, this.state.votesFilter);
-    filteredFeedback = this.filterFeebackByProject(filteredFeedback, this.state.projectFilter);
-    filteredFeedback = this.filterFeedbackBySearch(filteredFeedback, this.state.search);
+  render() {
+    let uniqueProjects = this.getUniqueProjects();
+    let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
 
     return (
       <div className="App">
@@ -195,6 +240,8 @@ class App extends React.Component {
                 projects={uniqueProjects}
                 projectFilter={this.state.projectFilter}
                 onProjectFilterChange={this.handleProjectFilterChange}
+                statusFilter={this.state.statusFilter}
+                onStatusFilterChange={this.handleStatusFilterChange}
               />
             </Col>
             <Col xs={9} id="col2">
