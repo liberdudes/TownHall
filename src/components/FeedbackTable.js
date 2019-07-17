@@ -3,21 +3,27 @@ import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
 import moment from "moment";
 
 class FeedbackTable extends Component {
   constructor(props) {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleFeedbackDelete = this.handleFeedbackDelete.bind(this);
   }
 
   handleStatusChange(messageId, e) {
     this.props.onStatusChange(messageId, e.target.text);
   }
 
+  handleFeedbackDelete(projectId, messageId) {
+    this.props.onFeedbackDelete(projectId, messageId);
+  }
+
   render() {
     return (
-      <Table striped hover size="sm">
+      <Table striped size="sm">
         <thead>
           <tr>
             <th>Upvotes</th>
@@ -25,6 +31,7 @@ class FeedbackTable extends Component {
             <th>Project</th>
             <th>Date Posted</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +66,22 @@ class FeedbackTable extends Component {
                       Closed
                     </Dropdown.Item>
                   </DropdownButton>
+                </td>
+                <td>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() =>
+                      this.handleFeedbackDelete(
+                        feedback.project,
+                        feedback.messageId
+                      )
+                    }
+                  >
+                    Remove
+                  </Button>
+                </td>
+                <td>
+                  <Button variant="outline-info">Expand</Button>
                 </td>
               </tr>
             );

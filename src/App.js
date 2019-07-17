@@ -16,6 +16,7 @@ class App extends React.Component {
     super(props);
 
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleFeedbackDelete = this.handleFeedbackDelete.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDevModeChange = this.handleDevModeChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -57,6 +58,16 @@ class App extends React.Component {
         }
       }
     }
+  }
+  
+  handleFeedbackDelete(projectId, messageId) {
+    let feedbackCopyWithDeletedElement = this.state.feedbackCollection.filter(
+      feedback => {
+        return feedback.messageId !== messageId;
+      }
+    );
+    this.setState({ feedbackCollection: feedbackCopyWithDeletedElement });
+    helper.deleteMessage(projectId, messageId);
   }
 
   handleSearchChange(value) {
@@ -219,13 +230,17 @@ class App extends React.Component {
           onSearchChange={this.handleSearchChange}
         />
         {this.state.isDevMode ? (
-          <div>
-            <FeedbackTable
-              feedbackCollection={this.state.feedbackCollection}
-              onStatusChange={this.handleStatusChange}
-              updateFeedbackCollection={this.updateFeedbackCollection}
-            />
-          </div>
+          <Container>
+            <Row>
+              <Col xs={8}>
+                <FeedbackTable
+                  feedbackCollection={this.state.feedbackCollection}
+                  onStatusChange={this.handleStatusChange}
+                  onFeedbackDelete={this.handleFeedbackDelete}
+                />
+              </Col>
+            </Row>
+          </Container>
         ) : (
           <Container id="container">
             <Row>
@@ -245,7 +260,7 @@ class App extends React.Component {
               <Col xs={9} id="col2">
                 <Container>
                   <Row>
-                    <Col xs={7}></Col>
+                    <Col xs={7} />
                     <Col xs={5}>
                       <Modal />
                     </Col>

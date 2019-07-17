@@ -18,7 +18,7 @@ class Navigation extends Component {
     this.props.onSearchChange(e.target.value.substr(0, 20));
   }
 
-  handleDevModeChange(e) {
+  handleDevModeChange() {
     this.props.onDevModeChange(!this.props.devMode);
   }
 

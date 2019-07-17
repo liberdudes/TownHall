@@ -1,6 +1,11 @@
 import { db } from "./components/firebase.js";
 import moment from "moment";
 
+export function deleteMessage(projectId, messageId) {
+  db.ref("messages/" + messageId).remove();
+  db.ref("projects/" + projectId + "/" + messageId).remove();
+}
+
 export function getMessage(id) {
   return db.ref("messages/" + id);
 }
@@ -73,9 +78,4 @@ export function getProjects() {
     });
   });
   return list;
-}
-
-export function deleteMessage(projectId, messageId) {
-  db.ref("messages/" + messageId).remove();
-  db.ref("projects/" + projectId + "/" + messageId).remove();
 }

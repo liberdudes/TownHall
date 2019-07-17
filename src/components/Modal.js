@@ -111,7 +111,7 @@ class Modal extends Component {
                     placeholder="Drop Down"
                     id="dropdown-basic"
                     onChange={this.handleChangeSelect}
-                  ></Dropdown.Toggle>
+                  />
 
                   <Dropdown.Menu onClick={this.handleChangeDropdown}>
                     {optionItems}
