@@ -74,3 +74,8 @@ export function getProjects() {
   });
   return list;
 }
+
+export function deleteMessage(projectId, messageId) {
+  db.ref("messages/" + messageId).remove();
+  db.ref("projects/" + projectId + "/" + messageId).remove();
+}
