@@ -59,7 +59,7 @@ class App extends React.Component {
       }
     }
   }
-
+  
   handleFeedbackDelete(projectId, messageId) {
     let feedbackCopyWithDeletedElement = this.state.feedbackCollection.filter(
       feedback => {
