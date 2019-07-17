@@ -17,8 +17,8 @@ class FeedbackTable extends Component {
     this.props.onStatusChange(messageId, e.target.text);
   }
 
-  handleFeedbackDelete(messageId) {
-    this.props.onFeedbackDelete(messageId);
+  handleFeedbackDelete(projectId, messageId) {
+    this.props.onFeedbackDelete(projectId, messageId);
   }
 
   render() {
@@ -71,7 +71,10 @@ class FeedbackTable extends Component {
                   <Button
                     variant="outline-danger"
                     onClick={() =>
-                      this.handleFeedbackDelete(feedback.messageId)
+                      this.handleFeedbackDelete(
+                        feedback.project,
+                        feedback.messageId
+                      )
                     }
                   >
                     Remove

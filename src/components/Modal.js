@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import ModalBoot from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
-import * as helper from "./helper";
+import * as helper from "../helper";
 import "../styles/NewFeedbackButton.css";
 
 class Modal extends Component {

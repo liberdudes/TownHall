@@ -8,7 +8,7 @@ import Modal from "./components/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import * as helper from "./components/helper";
+import * as helper from "./helper";
 import moment from "moment";
 
 class App extends React.Component {
@@ -60,15 +60,14 @@ class App extends React.Component {
     }
   }
 
-  handleFeedbackDelete(messageId) {
+  handleFeedbackDelete(projectId, messageId) {
     let feedbackCopyWithDeletedElement = this.state.feedbackCollection.filter(
       feedback => {
         return feedback.messageId !== messageId;
       }
     );
     this.setState({ feedbackCollection: feedbackCopyWithDeletedElement });
-
-    //TODO: write deleteMessage(messageId) in helper.js and call it here
+    helper.deleteMessage(projectId, messageId);
   }
 
   handleSearchChange(value) {
