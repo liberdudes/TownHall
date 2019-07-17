@@ -1,4 +1,4 @@
-import { db } from "./components/firebase.js";
+import { db } from "./firebase";
 import moment from "moment";
 
 export function deleteMessage(projectId, messageId) {

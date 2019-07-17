@@ -1,0 +1,24 @@
+.searchContainer {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 40px;
+}
+
+.searchInput {
+  width: 50%;
+  height: 40px;
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #8c8c8d;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  padding-left: 20px;
+  outline-width: 0;
+}
+
+.searchInput::placeholder {
+  color: #8c8c8d;
+}
