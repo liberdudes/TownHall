@@ -1,0 +1,94 @@
+.feedbackCardContainer {
+  display: grid;
+  grid-template-columns: [left-start] 100px [middle-start] auto [right-start] 250px [right-end];
+  grid-template-rows: auto;
+  grid-template-areas: "left middle right";
+  width: 724px;
+  height: 182px;
+  background: #151419;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-left: 40px;
+  margin-top: 25px;
+}
+
+.leftFeedbackCardContainer {
+  grid-area: left;
+
+  border-color: blue;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.middleFeedbackCardContainer {
+  grid-area: middle;
+
+  border-color: yellow;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.rightFeedbackCardContainer {
+  grid-area: right;
+
+  border-color: red;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.feedbackCardUpvoteLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.025em;
+  color: #7c7d85;
+}
+
+.feedbackCardUpvoteValue {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: 0.025em;
+  color: #edeced;
+}
+
+.feedbackCardSubject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: #edeced;
+}
+
+.feedbackCardProject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #7c7d85;
+}
+
+.feedbackCardStatus {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #7c7d85;
+}
+
+.feedbackCardDate {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #7c7d85;
+}

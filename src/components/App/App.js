@@ -2,6 +2,7 @@ import React from "react";
 import * as helper from "../../api/helper";
 import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
+import FeedbackCard from "../FeedbackCard/FeedbackCard";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class App extends React.Component {
 
     this.state = {
       searchInput: "",
-      container: "Feedback"
+      container: "Feedback",
+      feedbackCollection: []
     };
   }
 
@@ -40,7 +42,7 @@ class App extends React.Component {
     let filteredFeedback;
     filteredFeedback = this.filterFeedbackBySearch(
       collection,
-      this.state.search
+      this.state.searchInput
     );
     return filteredFeedback;
   }
@@ -54,12 +56,13 @@ class App extends React.Component {
   }
 
   render() {
-    // let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
-    console.log(this.state.searchInput);
+    let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
 
     let container;
     if (this.state.container === "Feedback") {
-      container = <p>feedback</p>;
+      container = filteredFeedback.map(feedback => {
+        return <FeedbackCard key={feedback.messageId} feedback={feedback} />;
+      });
     } else if (this.state.container === "Admin Mode") {
       container = <p>admin</p>;
     } else if (this.state.container === "Statistics") {

@@ -32,7 +32,7 @@ export function addMessageToProject(projectId, message) {
   let mKey = db.ref("messages").push().key;
   message["timestamp"] = moment().valueOf();
   message["status"] = "New";
-  message["upvote"] = 5;
+  message["upvote"] = 0;
   message["project"] = projectId;
   message["messageId"] = mKey;
 
