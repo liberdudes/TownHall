@@ -1,12 +1,14 @@
 import React from "react";
 import * as helper from "../../api/helper";
 import SearchBar from "../SearchBar/SearchBar";
+import SideBar from "../SideBar/SideBar";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleContainerChange = this.handleContainerChange.bind(this);
 
     this.state = {
       searchInput: "",
@@ -28,6 +30,12 @@ class App extends React.Component {
     this.setState({ searchInput: value });
   }
 
+  handleContainerChange(value) {
+    if (this.state !== value) {
+      this.setState({ container: value });
+    }
+  }
+
   setupFilters(collection) {
     let filteredFeedback;
     filteredFeedback = this.filterFeedbackBySearch(
@@ -47,7 +55,7 @@ class App extends React.Component {
 
   render() {
     // let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
-    console.log(this.state);
+    console.log(this.state.searchInput);
 
     let container;
     if (this.state.container === "Feedback") {
@@ -62,7 +70,12 @@ class App extends React.Component {
 
     return (
       <div className="grid">
-        <div className="sidebar"></div>
+        <div className="sidebar">
+          <SideBar
+            container={this.state.container}
+            onContainerChange={this.handleContainerChange}
+          />
+        </div>
         <div className="header">
           <SearchBar onSearchChange={this.handleSearchChange} />
         </div>
