@@ -1,5 +1,6 @@
 import React from "react";
 import "./SideBar.css";
+import logo from "../../logo.svg";
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class SideBar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="sideBarLayout">
+        <div id="townhallSideBarBranding">
+          <img alt="townhallLogo" src={logo} />
+          <h4 id="townhallName">townhall</h4>
+        </div>
         <button
           className={this.buttonStylesheet("Feedback")}
           id="Feedback"
