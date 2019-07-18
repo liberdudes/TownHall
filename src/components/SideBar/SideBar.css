@@ -58,3 +58,13 @@
   padding-left: 60px;
   padding-right: 0px;
 }
+
+.lineBreakSideBar {
+  width: 236px;
+  height: 2px;
+  border-width: 0px;
+  margin-right: 22px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #24262a;
+}

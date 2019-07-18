@@ -49,6 +49,14 @@ class SideBar extends React.Component {
         >
           Statistics
         </button>
+        <hr className="lineBreakSideBar" />
+        <button
+          className={this.buttonStylesheet("Settings")}
+          id="Settings"
+          onClick={this.handleContainerChange}
+        >
+          Settings
+        </button>
       </div>
     );
   }
