@@ -23,10 +23,6 @@
 
 .rightFeedbackCardContainer {
   grid-area: right;
-
-  border-color: red;
-  border-width: 2px;
-  border-style: solid;
 }
 
 .feedbackCardUpvoteLabel {
@@ -116,16 +112,12 @@
 
 .feedbackCardStatusElementContainer {
   grid-area: status;
-  border-color: green;
-  border-width: 2px;
-  border-style: solid;
+  margin-top: 10px;
 }
 
 .feedbackCardStatusBadgeElementContainer {
   grid-area: badge;
-  border-color: orange;
-  border-width: 2px;
-  border-style: solid;
+  margin-top: 10px;
 }
 
 .feedbackCardStatus {
@@ -141,19 +133,38 @@
 
 .feedbackCardStatusBadge {
   grid-area: badge;
-  background-color: yellow;
   position: absolute;
   width: 15px;
   height: 15px;
-  background: #1484ff;
   border-radius: 100%;
+  margin-top: 16.5px;
+  margin-left: 8px;
+}
+
+#newBadge.feedbackCardStatusBadge {
+  background: #edeced;
+}
+
+#inProgress.feedbackCardStatusBadge {
+  background: #70aff3;
+}
+
+#completed.feedbackCardStatusBadge {
+  background: #1484ff;
+}
+
+#closed.feedbackCardStatusBadge {
+  background: #164e8a;
 }
 
 .feedbackCardDate {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 21px;
   color: #7c7d85;
+  text-align: right;
+  margin-top: 80px;
+  margin-right: 25px;
 }

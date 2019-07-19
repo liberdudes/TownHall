@@ -8,6 +8,17 @@ class FeedbackCard extends React.Component {
       "MMMM Do YYYY, h:mm a"
     );
 
+    let statusBadgeCSSId;
+    if (this.props.feedback.status === "New") {
+      statusBadgeCSSId = "newBadge";
+    } else if (this.props.feedback.status === "In Progress") {
+      statusBadgeCSSId = "inProgress";
+    } else if (this.props.feedback.status === "Completed") {
+      statusBadgeCSSId = "completed";
+    } else if (this.props.feedback.status === "Closed") {
+      statusBadgeCSSId = "closed";
+    }
+
     return (
       <div className="feedbackCardContainer">
         <div className="leftFeedbackCardContainer">
@@ -30,7 +41,7 @@ class FeedbackCard extends React.Component {
               <p className="feedbackCardStatus">{this.props.feedback.status}</p>
             </div>
             <div className="feedbackCardStatusBadgeElementContainer">
-              <span className="feedbackCardStatusBadge" />
+              <span id={statusBadgeCSSId} className="feedbackCardStatusBadge" />
             </div>
           </div>
           <p className="feedbackCardDate">{formattedDate}</p>
