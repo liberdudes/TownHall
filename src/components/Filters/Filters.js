@@ -51,6 +51,7 @@ class Filters extends React.Component {
               value={this.props.votesFilter}
               onChange={this.handleVotesFilterChange}
             >
+              <option value="All">All</option>
               <option value="Highest">Highest</option>
               <option value="Lowest">Lowest</option>
             </select>

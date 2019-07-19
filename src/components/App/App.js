@@ -20,7 +20,7 @@ class App extends React.Component {
     this.state = {
       searchInput: "",
       dateFilter: "All",
-      votesFilter: "Highest",
+      votesFilter: "All",
       projectFilter: "All",
       statusFilter: "All",
       container: "Feedback",
@@ -114,7 +114,9 @@ class App extends React.Component {
   }
 
   filterFeedbackByVotes(collection, votes) {
-    if (votes === "Highest") {
+    if (votes === "All") {
+      return collection;
+    } else if (votes === "Highest") {
       return collection.sort((a, b) => b.upvote - a.upvote);
     } else if (votes === "Lowest") {
       return collection.sort((a, b) => a.upvote - b.upvote);
@@ -219,6 +221,8 @@ class App extends React.Component {
     } else {
       newFeedbackButton = null;
     }
+
+    console.log(this.state.votesFilter);
 
     return (
       <div className="grid">
