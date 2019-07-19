@@ -15,18 +15,10 @@
 
 .leftFeedbackCardContainer {
   grid-area: left;
-
-  border-color: blue;
-  border-width: 2px;
-  border-style: solid;
 }
 
 .middleFeedbackCardContainer {
   grid-area: middle;
-
-  border-color: yellow;
-  border-width: 2px;
-  border-style: solid;
 }
 
 .rightFeedbackCardContainer {
@@ -43,8 +35,12 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   color: #7c7d85;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-bottom: 5px;
 }
 
 .feedbackCardUpvoteValue {
@@ -55,33 +51,102 @@
   line-height: 42px;
   letter-spacing: 0.025em;
   color: #edeced;
+  margin-top: 0px;
+  margin-left: 25px;
 }
 
 .feedbackCardSubject {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 28px;
   color: #edeced;
+  margin-top: 18px;
+  margin-left: 25px;
+  margin-bottom: 0px;
 }
 
 .feedbackCardProject {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 21px;
   color: #7c7d85;
+  margin-top: 4px;
+  margin-left: 25px;
+}
+
+.feedbackCardButtonContainer {
+  margin-left: 17px;
+  margin-top: 50px;
+}
+
+.feedbackCardButton {
+  height: 41px;
+  background-color: Transparent;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  color: #edeced;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-right: 18px;
+  margin-left: 8px;
+  margin-right: 8px;
+  outline-width: 0;
+  transition: all 0.15s ease-out;
+}
+
+.feedbackCardButton:hover {
+  background-color: #222128;
+}
+
+.feedbackCardStatusContainer {
+  display: grid;
+  grid-template-columns: [start] 200px [middle] auto [end];
+  grid-template-rows: auto;
+  grid-template-areas: "status badge";
+}
+
+.feedbackCardStatusElementContainer {
+  grid-area: status;
+  border-color: green;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.feedbackCardStatusBadgeElementContainer {
+  grid-area: badge;
+  border-color: orange;
+  border-width: 2px;
+  border-style: solid;
 }
 
 .feedbackCardStatus {
+  grid-area: status;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 21px;
   color: #7c7d85;
+  text-align: right;
+}
+
+.feedbackCardStatusBadge {
+  grid-area: badge;
+  background-color: yellow;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #1484ff;
+  border-radius: 100%;
 }
 
 .feedbackCardDate {

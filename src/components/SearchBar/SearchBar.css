@@ -17,8 +17,14 @@
   font-size: 20px;
   padding-left: 20px;
   outline-width: 0;
+  transition: all 0.15s ease-out;
 }
 
 .searchInput::placeholder {
   color: #8c8c8d;
+}
+
+.searchInput:hover,
+.searchInput:focus {
+  background: #151419;
 }
