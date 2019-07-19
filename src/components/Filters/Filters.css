@@ -1,0 +1,40 @@
+.filtersContainer {
+  display: grid;
+  grid-template-columns: [start] auto [second] auto [third] auto [fourth] auto [end];
+  grid-template-rows: auto;
+  grid-template-areas: "date votes project status";
+  margin-left: 40px;
+  margin-right: 50px;
+}
+
+.filtersDateContainer {
+  grid-area: date;
+
+  border-color: blue;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.filtersVotesContainer {
+  grid-area: votes;
+
+  border-color: yellow;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.filtersProjectContainer {
+  grid-area: project;
+
+  border-color: green;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.filtersStatusContainer {
+  grid-area: status;
+
+  border-color: purple;
+  border-width: 2px;
+  border-style: solid;
+}

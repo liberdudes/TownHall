@@ -1,7 +1,9 @@
 import React from "react";
+import moment from "moment";
 import * as helper from "../../api/helper";
 import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
+import Filters from "../Filters/Filters";
 import FeedbackCard from "../FeedbackCard/FeedbackCard";
 
 class App extends React.Component {
@@ -9,10 +11,18 @@ class App extends React.Component {
     super(props);
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
+    this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
+    this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
+    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
     this.handleContainerChange = this.handleContainerChange.bind(this);
 
     this.state = {
       searchInput: "",
+      dateFilter: "All",
+      votesFilter: "Highest",
+      projectFilter: "All",
+      statusFilter: "All",
       container: "Feedback",
       feedbackCollection: []
     };
@@ -32,6 +42,22 @@ class App extends React.Component {
     this.setState({ searchInput: value });
   }
 
+  handleDateFilterChange(value) {
+    this.setState({ dateFilter: value });
+  }
+
+  handleVotesFilterChange(value) {
+    this.setState({ votesFilter: value });
+  }
+
+  handleProjectFilterChange(value) {
+    this.setState({ projectFilter: value });
+  }
+
+  handleStatusFilterChange(value) {
+    this.setState({ statusFilter: value });
+  }
+
   handleContainerChange(value) {
     if (this.state !== value) {
       this.setState({ container: value });
@@ -40,11 +66,91 @@ class App extends React.Component {
 
   setupFilters(collection) {
     let filteredFeedback;
-    filteredFeedback = this.filterFeedbackBySearch(
+    filteredFeedback = this.filterFeedbackByDate(
       collection,
+      this.state.dateFilter
+    );
+    filteredFeedback = this.filterFeedbackByVotes(
+      filteredFeedback,
+      this.state.votesFilter
+    );
+    filteredFeedback = this.filterFeebackByProject(
+      filteredFeedback,
+      this.state.projectFilter
+    );
+    filteredFeedback = this.filterFeedbackByStatus(
+      filteredFeedback,
+      this.state.statusFilter
+    );
+    filteredFeedback = this.filterFeedbackBySearch(
+      filteredFeedback,
       this.state.searchInput
     );
     return filteredFeedback;
+  }
+
+  filterFeedbackByDate(collection, date) {
+    if (date === "All") {
+      return collection;
+    } else if (date === "Today") {
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "day");
+      });
+    } else if (date === "This Week") {
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "week");
+      });
+    } else if (date === "This Month") {
+      return collection.filter(feedback => {
+        const feedbackDay = moment(feedback.timestamp);
+        const today = moment();
+        return feedbackDay.isSame(today, "month");
+      });
+    }
+  }
+
+  filterFeedbackByVotes(collection, votes) {
+    if (votes === "Highest") {
+      return collection.sort((a, b) => b.upvote - a.upvote);
+    } else if (votes === "Lowest") {
+      return collection.sort((a, b) => a.upvote - b.upvote);
+    }
+  }
+
+  filterFeebackByProject(collection, project) {
+    if (project === "All") {
+      return collection;
+    } else {
+      return collection.filter(feedback => {
+        return feedback.project === project;
+      });
+    }
+  }
+
+  filterFeedbackByStatus(collection, status) {
+    if (status === "All") {
+      return collection;
+    } else if (status === "New") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "In Progress") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "Completed") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    } else if (status === "Closed") {
+      return collection.filter(feedback => {
+        return feedback.status === status;
+      });
+    }
   }
 
   filterFeedbackBySearch(collection, search) {
@@ -55,7 +161,21 @@ class App extends React.Component {
     });
   }
 
+  getUniqueProjects() {
+    let uniqueProjects = [];
+    this.state.feedbackCollection.forEach(feedbackCollection => {
+      if (
+        !uniqueProjects.includes(feedbackCollection.project) &&
+        feedbackCollection.project !== ""
+      ) {
+        uniqueProjects.push(feedbackCollection.project);
+      }
+    });
+    return uniqueProjects;
+  }
+
   render() {
+    let uniqueProjects = this.getUniqueProjects();
     let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
 
     let container;
@@ -71,6 +191,35 @@ class App extends React.Component {
       container = <p>settings</p>;
     }
 
+    let filter;
+    if (
+      this.state.container === "Feedback" ||
+      this.state.container === "Admin Mode"
+    ) {
+      filter = (
+        <Filters
+          dateFilter={this.state.dateFilter}
+          onDateFilterChange={this.handleDateFilterChange}
+          votesFilter={this.state.votesFilter}
+          onVotesFilterChange={this.handleVotesFilterChange}
+          projects={uniqueProjects}
+          projectFilter={this.state.projectFilter}
+          onProjectFilterChange={this.handleProjectFilterChange}
+          statusFilter={this.state.statusFilter}
+          onStatusFilterChange={this.handleStatusFilterChange}
+        />
+      );
+    } else {
+      filter = null;
+    }
+
+    let newFeedbackButton;
+    if (this.state.container === "Feedback") {
+      newFeedbackButton = <button>+ New Feedback</button>;
+    } else {
+      newFeedbackButton = null;
+    }
+
     return (
       <div className="grid">
         <div className="sidebar">
@@ -82,7 +231,11 @@ class App extends React.Component {
         <div className="header">
           <SearchBar onSearchChange={this.handleSearchChange} />
         </div>
-        <div className="main">{container}</div>
+        <div className="main">
+          {filter}
+          {newFeedbackButton}
+          {container}
+        </div>
       </div>
     );
   }
