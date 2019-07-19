@@ -19,6 +19,13 @@
   margin-left: 10px;
 }
 
+#townhallAlpha {
+  color: #7c7d85;
+  font-size: 22px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
 .activeSideBarButton {
   width: 236px;
   height: 45px;

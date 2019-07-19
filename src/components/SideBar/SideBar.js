@@ -27,6 +27,7 @@ class SideBar extends React.Component {
         <div id="townhallSideBarBranding">
           <img alt="townhallLogo" src={logo} />
           <h4 id="townhallName">townhall</h4>
+          <span id="townhallAlpha">α</span>
         </div>
         <button
           className={this.buttonStylesheet("Feedback")}

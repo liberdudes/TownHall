@@ -1,0 +1,24 @@
+.topBarContainer {
+  display: grid;
+  grid-template-columns: [start] 720px [middle] 200px [end];
+  grid-template-rows: auto;
+  grid-template-areas: "filters button";
+  margin-left: 40px;
+  margin-right: 0px;
+}
+
+.topBarFiltersContainer {
+  grid-area: filters;
+
+  border-color: white;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.topBarButtonContainer {
+  grid-area: button;
+
+  border-color: red;
+  border-width: 2px;
+  border-style: solid;
+}

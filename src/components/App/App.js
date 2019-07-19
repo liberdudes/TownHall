@@ -3,8 +3,8 @@ import moment from "moment";
 import * as helper from "../../api/helper";
 import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
-import Filters from "../Filters/Filters";
 import FeedbackCard from "../FeedbackCard/FeedbackCard";
+import TopBar from "../TopBar/TopBar";
 
 class App extends React.Component {
   constructor(props) {
@@ -193,13 +193,14 @@ class App extends React.Component {
       container = <p>settings</p>;
     }
 
-    let filter;
+    let topBar;
     if (
       this.state.container === "Feedback" ||
       this.state.container === "Admin Mode"
     ) {
-      filter = (
-        <Filters
+      topBar = (
+        <TopBar
+          container={this.state.container}
           dateFilter={this.state.dateFilter}
           onDateFilterChange={this.handleDateFilterChange}
           votesFilter={this.state.votesFilter}
@@ -212,17 +213,10 @@ class App extends React.Component {
         />
       );
     } else {
-      filter = null;
+      topBar = null;
     }
 
-    let newFeedbackButton;
-    if (this.state.container === "Feedback") {
-      newFeedbackButton = <button>+ New Feedback</button>;
-    } else {
-      newFeedbackButton = null;
-    }
-
-    console.log(this.state.votesFilter);
+    console.log(this.state.dateFilter);
 
     return (
       <div className="grid">
@@ -236,8 +230,7 @@ class App extends React.Component {
           <SearchBar onSearchChange={this.handleSearchChange} />
         </div>
         <div className="main">
-          {filter}
-          {newFeedbackButton}
+          {topBar}
           {container}
         </div>
       </div>
