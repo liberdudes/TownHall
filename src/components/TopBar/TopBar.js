@@ -1,15 +1,21 @@
 import React from "react";
 import Filters from "../Filters/Filters";
+import NewFeedback from "../NewFeedback/NewFeedback";
 import "./TopBar.css";
 
 class TopBar extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleNewFeedbackSubmit = this.handleNewFeedbackSubmit.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
     this.handleProjectFilterChange = this.handleProjectFilterChange.bind(this);
     this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
+  }
+
+  handleNewFeedbackSubmit() {
+    this.props.onNewFeedbackSubmit();
   }
 
   handleDateFilterChange(value) {
@@ -29,15 +35,24 @@ class TopBar extends React.Component {
   }
 
   render() {
-    let newFeedbackButton;
+    // subject
+    // body
+    // project
+    let newFeedback;
     if (this.props.container === "Feedback") {
-      newFeedbackButton = <button>new feedback</button>;
+      newFeedback = (
+        <NewFeedback
+          projects={this.props.projects}
+          onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
+        />
+      );
     } else {
-      newFeedbackButton = null;
+      newFeedback = null;
     }
 
     return (
       <div className="topBarContainer">
+        {newFeedback}
         <div className="topBarFiltersContainer">
           <Filters
             dateFilter={this.props.dateFilter}
@@ -51,7 +66,6 @@ class TopBar extends React.Component {
             onStatusFilterChange={this.handleStatusFilterChange}
           />
         </div>
-        <div className="topBarButtonContainer">{newFeedbackButton}</div>
       </div>
     );
   }

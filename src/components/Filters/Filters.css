@@ -3,38 +3,42 @@
   grid-template-columns: [start] auto [second] auto [third] auto [fourth] auto [end];
   grid-template-rows: auto;
   grid-template-areas: "date votes project status";
-  margin-left: 40px;
-  margin-right: 50px;
+  /* margin-left: 40px; */
+  /* margin-right: 50px; */
 }
 
 .filtersDateContainer {
   grid-area: date;
+  text-align: center;
 
-  border-color: blue;
+  /* border-color: blue;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .filtersVotesContainer {
   grid-area: votes;
+  text-align: center;
 
-  border-color: yellow;
+  /* border-color: yellow;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .filtersProjectContainer {
   grid-area: project;
+  text-align: center;
 
-  border-color: green;
+  /* border-color: green;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .filtersStatusContainer {
   grid-area: status;
+  text-align: center;
 
-  border-color: purple;
+  /* border-color: purple;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }

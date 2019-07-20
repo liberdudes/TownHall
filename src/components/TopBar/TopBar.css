@@ -1,24 +1,27 @@
 .topBarContainer {
   display: grid;
-  grid-template-columns: [start] 720px [middle] 200px [end];
-  grid-template-rows: auto;
-  grid-template-areas: "filters button";
+  grid-template-columns: [start] 720px [end];
+  grid-template-rows: [top-col] 400px [mid-col] auto [end-col];
+  grid-template-areas:
+    "newFeedback"
+    "filters";
   margin-left: 40px;
   margin-right: 0px;
+}
+
+.newFeedbackContainer {
+  grid-area: newFeedback;
+  margin-bottom: 25px;
+
+  border-color: red;
+  border-width: 2px;
+  border-style: solid;
 }
 
 .topBarFiltersContainer {
   grid-area: filters;
 
-  border-color: white;
+  /* border-color: white;
   border-width: 2px;
-  border-style: solid;
-}
-
-.topBarButtonContainer {
-  grid-area: button;
-
-  border-color: red;
-  border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }

@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleNewFeedbackSubmit = this.handleNewFeedbackSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.handleVotesFilterChange = this.handleVotesFilterChange.bind(this);
@@ -18,6 +19,7 @@ class App extends React.Component {
     this.handleContainerChange = this.handleContainerChange.bind(this);
 
     this.state = {
+      isSubmittingNewFeedback: false,
       searchInput: "",
       dateFilter: "All",
       votesFilter: "All",
@@ -32,10 +34,25 @@ class App extends React.Component {
     let messages = await helper.getMessages();
 
     await new Promise(resolve => {
-      setTimeout(resolve, 500);
+      setTimeout(resolve, 1000);
     });
 
     this.setState({ feedbackCollection: messages });
+  }
+
+  async handleNewFeedbackSubmit() {
+    // let messages = await helper.getMessages();
+
+    this.setState({ isSubmittingNewFeedback: true });
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000);
+    });
+
+    console.log("RELOADED NEW DATA");
+
+    this.setState({ isSubmittingNewFeedback: false, feedbackCollection: [] });
+    // this.setState({ feedbackCollection: messages });
   }
 
   handleSearchChange(value) {
@@ -193,6 +210,13 @@ class App extends React.Component {
       container = <p>settings</p>;
     }
 
+    let loading;
+    if (this.state.isSubmittingNewFeedback === true) {
+      loading = <p>LOADING</p>;
+    } else {
+      loading = null;
+    }
+
     let topBar;
     if (
       this.state.container === "Feedback" ||
@@ -201,8 +225,9 @@ class App extends React.Component {
       topBar = (
         <TopBar
           container={this.state.container}
+          onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
           dateFilter={this.state.dateFilter}
-          onDateFilterChange={this.handleDateFilterChange}
+          onDateFilterChange={event => this.handleDateFilterChange(event)}
           votesFilter={this.state.votesFilter}
           onVotesFilterChange={this.handleVotesFilterChange}
           projects={uniqueProjects}
@@ -216,7 +241,7 @@ class App extends React.Component {
       topBar = null;
     }
 
-    console.log(this.state.dateFilter);
+    console.log(this.state);
 
     return (
       <div className="grid">
@@ -230,6 +255,7 @@ class App extends React.Component {
           <SearchBar onSearchChange={this.handleSearchChange} />
         </div>
         <div className="main">
+          {loading}
           {topBar}
           {container}
         </div>
