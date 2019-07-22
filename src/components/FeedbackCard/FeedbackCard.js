@@ -1,8 +1,14 @@
 import React from "react";
 import moment from "moment";
 import "./FeedbackCard.css";
+import { upvoteMessage } from "../../api/helper";
 
 class FeedbackCard extends React.Component {
+  handleUpvote(e) {
+    upvoteMessage(e.target.value);
+    console.log("Upvoted");
+  }
+
   render() {
     const formattedDate = moment(this.props.feedback.timestamp).format(
       "MMMM Do YYYY, h:mm a"
@@ -31,7 +37,13 @@ class FeedbackCard extends React.Component {
           <h2 className="feedbackCardSubject">{this.props.feedback.subject}</h2>
           <h4 className="feedbackCardProject">{this.props.feedback.project}</h4>
           <div className="feedbackCardButtonContainer">
-            <button className="feedbackCardButton">Upvote</button>
+            <button
+              className="feedbackCardButton"
+              value={this.props.feedback.messageId}
+              onClick={this.handleUpvote}
+            >
+              Upvote
+            </button>
             <button className="feedbackCardButton">Show More</button>
           </div>
         </div>

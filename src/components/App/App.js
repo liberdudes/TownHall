@@ -54,8 +54,6 @@ class App extends React.Component {
       subject: values.subject,
       body: values.description
     });
-
-    console.log("RELOADED NEW DATA");
   }
 
   handleSearchChange(value) {
