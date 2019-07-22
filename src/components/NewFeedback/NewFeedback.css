@@ -18,6 +18,7 @@
 
 .newFeedbackTitleContainer {
   grid-area: title;
+  border-bottom: 2px solid #24262a;
 
   /* border-color: white;
   border-width: 2px;
@@ -30,12 +31,13 @@
   font-weight: normal;
   font-size: 22px;
   color: #ffffff;
+  margin-left: 25px;
 }
 
 .formFeedbackContainer {
   grid-area: form;
   display: grid;
-  grid-template-columns: [start] 33% [middle] auto [end];
+  grid-template-columns: [start] 40% [middle] auto [end];
   grid-template-rows: [start] auto [second] auto [third] auto [fourth] auto [end];
   grid-template-areas:
     "subjectLabel subject"
@@ -44,12 +46,32 @@
     ". submit";
 }
 
+.newFeedbackPrimaryLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  color: #8c8c8d;
+  margin-bottom: 2px;
+  margin-left: 25px;
+}
+
+.newFeedbackSecondaryLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #7c7d85;
+  margin-top: 2px;
+  margin-left: 25px;
+}
+
 .newFeedbackSubjectLabelContainer {
   grid-area: subjectLabel;
 
-  border-color: green;
+  /* border-color: green;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .newFeedbackSubjectContainer {
@@ -63,9 +85,9 @@
 .newFeedbackDescriptionLabelContainer {
   grid-area: descriptionLabel;
 
-  border-color: blue;
+  /* border-color: blue;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .newFeedbackDescriptionContainer {
@@ -79,9 +101,9 @@
 .newFeedbackProjectLabelContainer {
   grid-area: projectLabel;
 
-  border-color: yellow;
+  /* border-color: yellow;
   border-width: 2px;
-  border-style: solid;
+  border-style: solid; */
 }
 
 .newFeedbackProjectContainer {
@@ -94,8 +116,12 @@
 
 .newFeedbackSubmitContainer {
   grid-area: submit;
+  text-align: right;
 
   border-color: orange;
   border-width: 2px;
   border-style: solid;
+}
+
+.newFeedbackSubmitButton {
 }

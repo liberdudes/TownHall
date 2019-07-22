@@ -96,7 +96,12 @@ class NewFeedback extends React.Component {
           className="formFeedbackContainer"
           onSubmit={this.handleNewFeedbackSubmit}
         >
-          <div className="newFeedbackSubjectLabelContainer">Subject Label</div>
+          <div className="newFeedbackSubjectLabelContainer">
+            <p className="newFeedbackPrimaryLabel">Subject</p>
+            <p className="newFeedbackSecondaryLabel">
+              Secondary feeback form label
+            </p>
+          </div>
           <div className="newFeedbackSubjectContainer">
             <input
               type="text"
@@ -107,7 +112,10 @@ class NewFeedback extends React.Component {
             />
           </div>
           <div className="newFeedbackDescriptionLabelContainer">
-            Description
+            <p className="newFeedbackPrimaryLabel">Description</p>
+            <p className="newFeedbackSecondaryLabel">
+              Secondary feeback form label
+            </p>
           </div>
           <div className="newFeedbackDescriptionContainer">
             <textarea
@@ -117,7 +125,12 @@ class NewFeedback extends React.Component {
               required
             />
           </div>
-          <div className="newFeedbackProjectLabelContainer">Project</div>
+          <div className="newFeedbackProjectLabelContainer">
+            <p className="newFeedbackPrimaryLabel">Project</p>
+            <p className="newFeedbackSecondaryLabel">
+              Secondary feeback form label
+            </p>
+          </div>
           <div className="newFeedbackProjectContainer">
             <select
               value={this.state.project}
@@ -136,7 +149,11 @@ class NewFeedback extends React.Component {
             </select>
           </div>
           <div className="newFeedbackSubmitContainer">
-            <input type="submit" value="Submit" />
+            <input
+              className="newFeedbackSubmitButton"
+              type="submit"
+              value="+ Create Feedback"
+            />
           </div>
         </form>
       </div>
