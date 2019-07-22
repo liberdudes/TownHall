@@ -89,9 +89,15 @@ class NewFeedback extends React.Component {
     return (
       <div className="newFeedbackContainer">
         {userError}
-        <form onSubmit={this.handleNewFeedbackSubmit}>
-          <label>
-            Subject
+        <div className="newFeedbackTitleContainer">
+          <h2 className="newFeedbackTitle">Provide Feedback</h2>
+        </div>
+        <form
+          className="formFeedbackContainer"
+          onSubmit={this.handleNewFeedbackSubmit}
+        >
+          <div className="newFeedbackSubjectLabelContainer">Subject Label</div>
+          <div className="newFeedbackSubjectContainer">
             <input
               type="text"
               placeholder="Provide a subject"
@@ -99,18 +105,20 @@ class NewFeedback extends React.Component {
               onChange={this.handleSubjectChange}
               required
             />
-          </label>
-          <label>
+          </div>
+          <div className="newFeedbackDescriptionLabelContainer">
             Description
+          </div>
+          <div className="newFeedbackDescriptionContainer">
             <textarea
               placeholder="Provide a description"
               value={this.state.description}
               onChange={this.handleDescriptionChange}
               required
             />
-          </label>
-          <label>
-            Project
+          </div>
+          <div className="newFeedbackProjectLabelContainer">Project</div>
+          <div className="newFeedbackProjectContainer">
             <select
               value={this.state.project}
               onChange={this.handleProjectChange}
@@ -126,8 +134,10 @@ class NewFeedback extends React.Component {
                 );
               })}
             </select>
-          </label>
-          <input type="submit" value="Submit" />
+          </div>
+          <div className="newFeedbackSubmitContainer">
+            <input type="submit" value="Submit" />
+          </div>
         </form>
       </div>
     );

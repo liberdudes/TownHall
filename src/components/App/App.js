@@ -11,6 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleUpvote = this.handleUpvote.bind(this);
     this.handleNewFeedbackSubmit = this.handleNewFeedbackSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -47,6 +48,10 @@ class App extends React.Component {
       });
       this.setState({ projects: newProjects });
     });
+  }
+
+  handleUpvote(value) {
+    helper.upvoteMessage(value);
   }
 
   handleNewFeedbackSubmit(values) {
@@ -187,7 +192,13 @@ class App extends React.Component {
     let container;
     if (this.state.container === "Feedback") {
       container = filteredFeedback.map(feedback => {
-        return <FeedbackCard key={feedback.messageId} feedback={feedback} />;
+        return (
+          <FeedbackCard
+            key={feedback.messageId}
+            feedback={feedback}
+            onUpvote={this.handleUpvote}
+          />
+        );
       });
     } else if (this.state.container === "Admin Mode") {
       container = <p>admin</p>;
@@ -207,7 +218,7 @@ class App extends React.Component {
           container={this.state.container}
           onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
           dateFilter={this.state.dateFilter}
-          onDateFilterChange={event => this.handleDateFilterChange(event)}
+          onDateFilterChange={this.handleDateFilterChange}
           votesFilter={this.state.votesFilter}
           onVotesFilterChange={this.handleVotesFilterChange}
           projects={this.state.projects}
