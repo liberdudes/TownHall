@@ -14,13 +14,11 @@ export function getProjectMessages(projectId) {
   return db.ref("projects/" + projectId);
 }
 
-export async function getMessages() {
+export function getMessages() {
   let list = [];
-  db.ref("messages").once("value", snapshot => {
+  db.ref("messages").on("value", snapshot => {
     snapshot.forEach(childsnap => {
-      // if (snapshot.val().status !== 'Closed') {
       list.push(childsnap.val());
-      // }
     });
   });
   return list;

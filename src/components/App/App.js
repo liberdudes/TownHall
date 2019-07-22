@@ -1,4 +1,5 @@
 import React from "react";
+import { db } from "../../api/firebase";
 import moment from "moment";
 import * as helper from "../../api/helper";
 import SearchBar from "../SearchBar/SearchBar";
@@ -19,42 +20,42 @@ class App extends React.Component {
     this.handleContainerChange = this.handleContainerChange.bind(this);
 
     this.state = {
-      isSubmittingNewFeedback: false,
       searchInput: "",
       dateFilter: "All",
       votesFilter: "All",
       projectFilter: "All",
       statusFilter: "All",
       container: "Feedback",
-      feedbackCollection: []
+      feedbackCollection: [],
+      projects: []
     };
   }
 
-  async componentDidMount() {
-    let messages = await helper.getMessages();
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 1000);
+  componentDidMount() {
+    db.ref("messages").on("value", snapshot => {
+      let feedback = [];
+      snapshot.forEach(childsnap => {
+        feedback.push(childsnap.val());
+      });
+      this.setState({ feedbackCollection: feedback });
     });
 
-    this.setState({ feedbackCollection: messages });
+    db.ref("projects").on("value", snapshot => {
+      let newProjects = [];
+      snapshot.forEach(snapshot => {
+        newProjects.push(snapshot.key);
+      });
+      this.setState({ projects: newProjects });
+    });
   }
 
-  async handleNewFeedbackSubmit(values) {
-    // let messages = await helper.getMessages();
-
-    this.setState({ isSubmittingNewFeedback: true });
-
-    console.log(values);
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 1000);
+  handleNewFeedbackSubmit(values) {
+    helper.addMessageToProject(values.project, {
+      subject: values.subject,
+      body: values.description
     });
 
     console.log("RELOADED NEW DATA");
-
-    this.setState({ isSubmittingNewFeedback: false, feedbackCollection: [] });
-    // this.setState({ feedbackCollection: messages });
   }
 
   handleSearchChange(value) {
@@ -182,21 +183,7 @@ class App extends React.Component {
     });
   }
 
-  getUniqueProjects() {
-    let uniqueProjects = [];
-    this.state.feedbackCollection.forEach(feedbackCollection => {
-      if (
-        !uniqueProjects.includes(feedbackCollection.project) &&
-        feedbackCollection.project !== ""
-      ) {
-        uniqueProjects.push(feedbackCollection.project);
-      }
-    });
-    return uniqueProjects;
-  }
-
   render() {
-    let uniqueProjects = this.getUniqueProjects();
     let filteredFeedback = this.setupFilters(this.state.feedbackCollection);
 
     let container;
@@ -212,13 +199,6 @@ class App extends React.Component {
       container = <p>settings</p>;
     }
 
-    let loading;
-    if (this.state.isSubmittingNewFeedback === true) {
-      loading = <p>LOADING</p>;
-    } else {
-      loading = null;
-    }
-
     let topBar;
     if (
       this.state.container === "Feedback" ||
@@ -232,7 +212,7 @@ class App extends React.Component {
           onDateFilterChange={event => this.handleDateFilterChange(event)}
           votesFilter={this.state.votesFilter}
           onVotesFilterChange={this.handleVotesFilterChange}
-          projects={uniqueProjects}
+          projects={this.state.projects}
           projectFilter={this.state.projectFilter}
           onProjectFilterChange={this.handleProjectFilterChange}
           statusFilter={this.state.statusFilter}
@@ -255,7 +235,6 @@ class App extends React.Component {
           <SearchBar onSearchChange={this.handleSearchChange} />
         </div>
         <div className="main">
-          {loading}
           {topBar}
           {container}
         </div>
