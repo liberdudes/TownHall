@@ -40,12 +40,10 @@ class App extends React.Component {
     this.setState({ feedbackCollection: messages });
   }
 
-  async handleNewFeedbackSubmit(values) {
+  async handleNewFeedbackSubmit() {
     // let messages = await helper.getMessages();
 
     this.setState({ isSubmittingNewFeedback: true });
-
-    console.log(values);
 
     await new Promise(resolve => {
       setTimeout(resolve, 1000);
@@ -242,6 +240,8 @@ class App extends React.Component {
     } else {
       topBar = null;
     }
+
+    console.log(this.state);
 
     return (
       <div className="grid">

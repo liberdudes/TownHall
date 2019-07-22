@@ -14,8 +14,8 @@ class TopBar extends React.Component {
     this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
   }
 
-  handleNewFeedbackSubmit(values) {
-    this.props.onNewFeedbackSubmit(values);
+  handleNewFeedbackSubmit() {
+    this.props.onNewFeedbackSubmit();
   }
 
   handleDateFilterChange(value) {
