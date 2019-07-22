@@ -1,0 +1,171 @@
+.feedbackCardContainer {
+  display: grid;
+  grid-template-columns: [left-start] 100px [middle-start] auto [right-start] 250px [right-end];
+  grid-template-rows: auto;
+  grid-template-areas: "left middle right";
+  width: 724px;
+  height: 182px;
+  background: #151419;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-left: 40px;
+  margin-top: 25px;
+  margin-right: 40px;
+}
+
+.leftFeedbackCardContainer {
+  grid-area: left;
+}
+
+.middleFeedbackCardContainer {
+  grid-area: middle;
+}
+
+.rightFeedbackCardContainer {
+  grid-area: right;
+}
+
+.feedbackCardUpvoteLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #7c7d85;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-bottom: 5px;
+}
+
+.feedbackCardUpvoteValue {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: 0.025em;
+  color: #edeced;
+  margin-top: 0px;
+  margin-left: 25px;
+}
+
+.feedbackCardSubject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #edeced;
+  margin-top: 18px;
+  margin-left: 25px;
+  margin-bottom: 0px;
+}
+
+.feedbackCardProject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #7c7d85;
+  margin-top: 4px;
+  margin-left: 25px;
+}
+
+.feedbackCardButtonContainer {
+  margin-left: 17px;
+  margin-top: 50px;
+}
+
+.feedbackCardButton {
+  height: 41px;
+  background-color: Transparent;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  color: #edeced;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-right: 18px;
+  margin-left: 8px;
+  margin-right: 8px;
+  outline-width: 0;
+  transition: all 0.15s ease-out;
+}
+
+.feedbackCardButton:hover {
+  background-color: #222128;
+}
+
+.feedbackCardStatusContainer {
+  display: grid;
+  grid-template-columns: [start] 200px [middle] auto [end];
+  grid-template-rows: auto;
+  grid-template-areas: "status badge";
+}
+
+.feedbackCardStatusElementContainer {
+  grid-area: status;
+  margin-top: 10px;
+}
+
+.feedbackCardStatusBadgeElementContainer {
+  grid-area: badge;
+  margin-top: 10px;
+}
+
+.feedbackCardStatus {
+  grid-area: status;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #7c7d85;
+  text-align: right;
+}
+
+.feedbackCardStatusBadge {
+  grid-area: badge;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin-top: 16.5px;
+  margin-left: 8px;
+}
+
+#newBadge.feedbackCardStatusBadge {
+  background: #edeced;
+}
+
+#inProgress.feedbackCardStatusBadge {
+  background: #70aff3;
+}
+
+#completed.feedbackCardStatusBadge {
+  background: #1484ff;
+}
+
+#closed.feedbackCardStatusBadge {
+  background: #164e8a;
+}
+
+.feedbackCardDate {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #7c7d85;
+  text-align: right;
+  margin-top: 80px;
+  margin-right: 25px;
+}

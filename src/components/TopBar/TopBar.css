@@ -1,0 +1,18 @@
+.topBarContainer {
+  display: grid;
+  grid-template-columns: [start] 720px [end];
+  grid-template-rows: [top-col] auto [mid-col] auto [end-col];
+  grid-template-areas:
+    "newFeedback"
+    "filters";
+  margin-left: 40px;
+  margin-right: 0px;
+}
+
+.topBarFiltersContainer {
+  grid-area: filters;
+
+  /* border-color: white;
+  border-width: 2px;
+  border-style: solid; */
+}

@@ -1,0 +1,87 @@
+.sideBarLayout {
+  margin-left: 22px;
+}
+
+#townhallSideBarBranding {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  margin-bottom: 40px;
+}
+
+#townhallName {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #ffffff;
+  margin-left: 10px;
+}
+
+#townhallAlpha {
+  color: #7c7d85;
+  font-size: 22px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.activeSideBarButton {
+  width: 236px;
+  height: 45px;
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: left;
+  color: #e4e3e8;
+  outline-width: 0;
+  padding-left: 60px;
+  padding-right: 0px;
+  margin-bottom: 5px;
+}
+
+.inactiveSideBarButton {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: left;
+  color: #e4e3e8;
+  width: 236px;
+  height: 45px;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  outline-width: 0;
+  padding-left: 60px;
+  padding-right: 0px;
+  transition: all 0.15s ease-out;
+  margin-bottom: 5px;
+}
+
+.inactiveSideBarButton:hover {
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.lineBreakSideBar {
+  width: 236px;
+  height: 2px;
+  border-width: 0px;
+  margin-right: 22px;
+  margin-top: 30px;
+  margin-bottom: 35px;
+  background-color: #24262a;
+}

@@ -1,0 +1,101 @@
+.newFeedbackContainer {
+  grid-area: newFeedback;
+  margin-top: 40px;
+  margin-bottom: 25px;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: [start] auto [second] auto [end];
+  grid-template-areas:
+    "title"
+    "form";
+
+  background: #151419;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.newFeedbackTitleContainer {
+  grid-area: title;
+
+  /* border-color: white;
+  border-width: 2px;
+  border-style: solid; */
+}
+
+.newFeedbackTitle {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.formFeedbackContainer {
+  grid-area: form;
+  display: grid;
+  grid-template-columns: [start] 33% [middle] auto [end];
+  grid-template-rows: [start] auto [second] auto [third] auto [fourth] auto [end];
+  grid-template-areas:
+    "subjectLabel subject"
+    "descriptionLabel description"
+    "projectLabel project"
+    ". submit";
+}
+
+.newFeedbackSubjectLabelContainer {
+  grid-area: subjectLabel;
+
+  border-color: green;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackSubjectContainer {
+  grid-area: subject;
+
+  border-color: green;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackDescriptionLabelContainer {
+  grid-area: descriptionLabel;
+
+  border-color: blue;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackDescriptionContainer {
+  grid-area: description;
+
+  border-color: blue;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackProjectLabelContainer {
+  grid-area: projectLabel;
+
+  border-color: yellow;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackProjectContainer {
+  grid-area: project;
+
+  border-color: yellow;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.newFeedbackSubmitContainer {
+  grid-area: submit;
+
+  border-color: orange;
+  border-width: 2px;
+  border-style: solid;
+}

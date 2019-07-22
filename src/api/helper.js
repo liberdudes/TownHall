@@ -1,4 +1,4 @@
-import { db } from "./components/firebase.js";
+import { db } from "./firebase";
 import moment from "moment";
 
 export function deleteMessage(projectId, messageId) {
@@ -14,13 +14,11 @@ export function getProjectMessages(projectId) {
   return db.ref("projects/" + projectId);
 }
 
-export async function getMessages() {
+export function getMessages() {
   let list = [];
-  db.ref("messages").once("value", snapshot => {
+  db.ref("messages").on("value", snapshot => {
     snapshot.forEach(childsnap => {
-      // if (snapshot.val().status !== 'Closed') {
       list.push(childsnap.val());
-      // }
     });
   });
   return list;
@@ -32,7 +30,7 @@ export function addMessageToProject(projectId, message) {
   let mKey = db.ref("messages").push().key;
   message["timestamp"] = moment().valueOf();
   message["status"] = "New";
-  message["upvote"] = 5;
+  message["upvote"] = 0;
   message["project"] = projectId;
   message["messageId"] = mKey;
 
