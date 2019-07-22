@@ -6,6 +6,7 @@ import { upvoteMessage } from "../../api/helper";
 class FeedbackCard extends React.Component {
   handleUpvote(e) {
     upvoteMessage(e.target.value);
+    upvoteMessage(e.target.value);
     console.log("Upvoted");
   }
 
