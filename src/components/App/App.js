@@ -27,25 +27,32 @@ class App extends React.Component {
       statusFilter: "All",
       container: "Feedback",
       feedbackCollection: [],
-      projects: []
+      projects: [],
+      limit: 5
     };
   }
 
   componentDidMount() {
-    db.ref("messages").on("value", snapshot => {
-      let feedback = [];
-      snapshot.forEach(childsnap => {
-        feedback.push(childsnap.val());
+    db.ref("messages")
+      .limitToLast(this.state.limit)
+      .on("value", snapshot => {
+        let feedback = [];
+        snapshot.forEach(childsnap => {
+          feedback.push(childsnap.val());
+        });
+        this.setState({
+          feedbackCollection: feedback
+        });
       });
-      this.setState({ feedbackCollection: feedback });
-    });
 
     db.ref("projects").on("value", snapshot => {
       let newProjects = [];
       snapshot.forEach(snapshot => {
         newProjects.push(snapshot.key);
       });
-      this.setState({ projects: newProjects });
+      this.setState({
+        projects: newProjects
+      });
     });
   }
 
@@ -54,33 +61,54 @@ class App extends React.Component {
       subject: values.subject,
       body: values.description
     });
+
+    console.log("RELOADED NEW DATA");
   }
 
   handleSearchChange(value) {
-    this.setState({ searchInput: value });
+    this.setState({
+      searchInput: value
+    });
   }
 
   handleDateFilterChange(value) {
-    this.setState({ dateFilter: value });
+    this.setState({
+      dateFilter: value
+    });
   }
 
   handleVotesFilterChange(value) {
-    this.setState({ votesFilter: value });
+    this.setState({
+      votesFilter: value
+    });
   }
 
   handleProjectFilterChange(value) {
-    this.setState({ projectFilter: value });
+    this.setState({
+      projectFilter: value
+    });
   }
 
   handleStatusFilterChange(value) {
-    this.setState({ statusFilter: value });
+    this.setState({
+      statusFilter: value
+    });
   }
 
   handleContainerChange(value) {
     if (this.state !== value) {
-      this.setState({ container: value });
+      this.setState({
+        container: value
+      });
     }
   }
+
+  handleNextPage = () => {
+    this.setState(
+      state => ({ limit: state.limit + 5 }),
+      this.componentDidMount
+    );
+  };
 
   setupFilters(collection) {
     let filteredFeedback;
@@ -189,12 +217,17 @@ class App extends React.Component {
       container = filteredFeedback.map(feedback => {
         return <FeedbackCard key={feedback.messageId} feedback={feedback} />;
       });
+      container.push(
+        <button type="button" onClick={this.handleNextPage}>
+          Load More
+        </button>
+      );
     } else if (this.state.container === "Admin Mode") {
-      container = <p>admin</p>;
+      container = <p> admin </p>;
     } else if (this.state.container === "Statistics") {
-      container = <p>statistics</p>;
+      container = <p> statistics </p>;
     } else if (this.state.container === "Settings") {
-      container = <p>settings</p>;
+      container = <p> settings </p>;
     }
 
     let topBar;
@@ -230,11 +263,10 @@ class App extends React.Component {
           />
         </div>
         <div className="header">
-          <SearchBar onSearchChange={this.handleSearchChange} />
+          <SearchBar onSearchChange={this.handleSearchChange} />{" "}
         </div>
         <div className="main">
-          {topBar}
-          {container}
+          {topBar} {container}
         </div>
       </div>
     );
