@@ -10,9 +10,9 @@ class NewFeedback extends React.Component {
       description: "",
       project: "",
       projects: this.props.projects,
-      subjectInputError: false,
-      descriptionInputError: false,
-      projectInputError: false
+      subjectInputError: true,
+      descriptionInputError: true,
+      projectInputError: true
     };
 
     this.handleSubjectChange = this.handleSubjectChange.bind(this);
@@ -23,14 +23,50 @@ class NewFeedback extends React.Component {
 
   handleSubjectChange(e) {
     this.setState({ subject: e.target.value });
+
+    const MIN_SUBJECT_LENGTH = 5;
+    const MAX_SUBJECT_LENGTH = 40;
+
+    let subjectLength = e.target.value.length;
+
+    if (
+      !(subjectLength >= MIN_SUBJECT_LENGTH) ||
+      !(subjectLength <= MAX_SUBJECT_LENGTH)
+    ) {
+      this.setState({ subjectInputError: true });
+    } else {
+      this.setState({ subjectInputError: false });
+    }
   }
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+
+    const MIN_DESC_LENGTH = 10;
+    const MAX_DESC_LENGTH = 200;
+
+    let descriptionLength = e.target.value.length;
+
+    if (
+      !(descriptionLength >= MIN_DESC_LENGTH) ||
+      !(descriptionLength <= MAX_DESC_LENGTH)
+    ) {
+      this.setState({ descriptionInputError: true });
+    } else {
+      this.setState({ descriptionInputError: false });
+    }
   }
 
   handleProjectChange(e) {
     this.setState({ project: e.target.value });
+
+    let project = e.target.value;
+
+    if (project === "") {
+      this.setState({ projectInputError: true });
+    } else {
+      this.setState({ projectInputError: false });
+    }
   }
 
   resetFormState() {
@@ -38,40 +74,18 @@ class NewFeedback extends React.Component {
       subject: "",
       description: "",
       project: "",
-      subjectInputError: false,
-      descriptionInputError: false,
-      projectInputError: false
+      subjectInputError: true,
+      descriptionInputError: true,
+      projectInputError: true
     });
   }
 
   handleNewFeedbackSubmit(e) {
-    const MIN_SUBJECT_LENGTH = 5;
-    const MAX_SUBJECT_LENGTH = 40;
-
-    const MIN_DESC_LENGTH = 10;
-    const MAX_DESC_LENGTH = 200;
-
-    let subjectLength = this.state.subject.length;
-    let descriptionLength = this.state.description.length;
-    let project = this.state.project;
-
     if (
-      !(subjectLength >= MIN_SUBJECT_LENGTH) ||
-      !(subjectLength <= MAX_SUBJECT_LENGTH)
+      this.state.subjectInputError === false &&
+      this.state.descriptionInputError === false &&
+      this.state.projectInputError === false
     ) {
-      this.setState({ subjectInputError: true });
-    }
-
-    if (
-      !(descriptionLength >= MIN_DESC_LENGTH) ||
-      !(descriptionLength <= MAX_DESC_LENGTH)
-    ) {
-      this.setState({ descriptionInputError: true });
-    }
-
-    if (project === "") {
-      this.setState({ projectInputError: true });
-    } else {
       const formContent = {
         subject: this.state.subject,
         description: this.state.description,
@@ -84,6 +98,8 @@ class NewFeedback extends React.Component {
   }
 
   render() {
+    console.log(this.state);
+
     let subjectSecondaryLabelClass;
     let subjectInputId;
     if (this.state.subjectInputError) {
