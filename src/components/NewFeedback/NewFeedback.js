@@ -10,7 +10,9 @@ class NewFeedback extends React.Component {
       description: "",
       project: "",
       projects: this.props.projects,
-      isErrorPresent: false
+      subjectInputError: false,
+      descriptionInputError: false,
+      projectInputError: false
     };
 
     this.handleSubjectChange = this.handleSubjectChange.bind(this);
@@ -31,16 +33,14 @@ class NewFeedback extends React.Component {
     this.setState({ project: e.target.value });
   }
 
-  toggleError() {
-    this.setState({ isErrorPresent: !this.state.isErrorPresent });
-  }
-
   resetFormState() {
     this.setState({
       subject: "",
       description: "",
       project: "",
-      isErrorPresent: false
+      subjectInputError: false,
+      descriptionInputError: false,
+      projectInputError: false
     });
   }
 
@@ -53,20 +53,24 @@ class NewFeedback extends React.Component {
 
     let subjectLength = this.state.subject.length;
     let descriptionLength = this.state.description.length;
-    let projectLength = this.state.project.length;
+    let project = this.state.project;
 
     if (
       !(subjectLength >= MIN_SUBJECT_LENGTH) ||
-      !(subjectLength <= MAX_SUBJECT_LENGTH) ||
-      (!(descriptionLength >= MIN_DESC_LENGTH) ||
-        !(descriptionLength <= MAX_DESC_LENGTH)) ||
-      projectLength === 0
+      !(subjectLength <= MAX_SUBJECT_LENGTH)
     ) {
-      console.log("input error");
+      this.setState({ subjectInputError: true });
+    }
 
-      if (this.state.isErrorPresent === false) {
-        this.toggleError();
-      }
+    if (
+      !(descriptionLength >= MIN_DESC_LENGTH) ||
+      !(descriptionLength <= MAX_DESC_LENGTH)
+    ) {
+      this.setState({ descriptionInputError: true });
+    }
+
+    if (project === "") {
+      this.setState({ projectInputError: true });
     } else {
       const formContent = {
         subject: this.state.subject,
@@ -80,15 +84,39 @@ class NewFeedback extends React.Component {
   }
 
   render() {
-    let userError;
-    if (this.state.isErrorPresent) {
-      userError = <p>USER ERROR</p>;
+    let subjectSecondaryLabelClass;
+    let subjectInputId;
+    if (this.state.subjectInputError) {
+      subjectSecondaryLabelClass = "newFeedbackSubjectSecondaryLabelUserError";
+      subjectInputId = "subjectInputUserError";
     } else {
-      userError = null;
+      subjectSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      subjectInputId = "subjectInput";
     }
+
+    let descriptionSecondaryLabelClass;
+    let descriptionInputId;
+    if (this.state.descriptionInputError) {
+      descriptionSecondaryLabelClass =
+        "newFeedbackDescriptionSecondaryLabelUserError";
+      descriptionInputId = "descriptionInputUserError";
+    } else {
+      descriptionSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      descriptionInputId = "descriptionInput";
+    }
+
+    let projectSecondaryLabelClass;
+    let projectInputId;
+    if (this.state.projectInputError) {
+      projectSecondaryLabelClass = "newFeedbackProjectSecondaryLabelUserError";
+      projectInputId = "projectInputUserError";
+    } else {
+      projectSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      projectInputId = "projectInput";
+    }
+
     return (
       <div className="newFeedbackContainer">
-        {userError}
         <div className="newFeedbackTitleContainer">
           <h2 className="newFeedbackTitle">Provide Feedback</h2>
         </div>
@@ -98,14 +126,15 @@ class NewFeedback extends React.Component {
         >
           <div className="newFeedbackSubjectLabelContainer">
             <p className="newFeedbackPrimaryLabel">Subject</p>
-            <p className="newFeedbackSecondaryLabel">
-              Secondary feeback form label
+            <p className={subjectSecondaryLabelClass}>
+              Must be betweeen 5-40 characters.
             </p>
           </div>
           <div className="newFeedbackSubjectContainer">
             <input
+              id={subjectInputId}
               type="text"
-              placeholder="Provide a subject"
+              placeholder="Brief summary"
               value={this.state.subject}
               onChange={this.handleSubjectChange}
               required
@@ -113,13 +142,14 @@ class NewFeedback extends React.Component {
           </div>
           <div className="newFeedbackDescriptionLabelContainer">
             <p className="newFeedbackPrimaryLabel">Description</p>
-            <p className="newFeedbackSecondaryLabel">
-              Secondary feeback form label
+            <p className={descriptionSecondaryLabelClass}>
+              Must be between 10-200 characters.
             </p>
           </div>
           <div className="newFeedbackDescriptionContainer">
             <textarea
-              placeholder="Provide a description"
+              id={descriptionInputId}
+              placeholder="Details you may want to provide"
               value={this.state.description}
               onChange={this.handleDescriptionChange}
               required
@@ -127,12 +157,13 @@ class NewFeedback extends React.Component {
           </div>
           <div className="newFeedbackProjectLabelContainer">
             <p className="newFeedbackPrimaryLabel">Project</p>
-            <p className="newFeedbackSecondaryLabel">
-              Secondary feeback form label
+            <p className={projectSecondaryLabelClass}>
+              Specify the project associated with your feedback.
             </p>
           </div>
           <div className="newFeedbackProjectContainer">
             <select
+              id={projectInputId}
               value={this.state.project}
               onChange={this.handleProjectChange}
             >
@@ -152,7 +183,7 @@ class NewFeedback extends React.Component {
             <input
               className="newFeedbackSubmitButton"
               type="submit"
-              value="+ Create Feedback"
+              value="Submit"
             />
           </div>
         </form>
