@@ -1,7 +1,8 @@
 .newFeedbackContainer {
   grid-area: newFeedback;
   margin-top: 40px;
-  margin-bottom: 25px;
+  margin-left: 40px;
+  width: 1000px;
 
   display: grid;
   grid-template-columns: auto;
@@ -245,25 +246,6 @@
   grid-area: project;
   margin-top: 20px;
 }
-
-/* resize: none;
-  width: 90%;
-  height: 138px;
-  margin-top: 16px;
-  background: #222128;
-  border: 2px solid #d9124a;
-  box-sizing: border-box;
-  border-radius: 5px;
-  color: #8c8c8d;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  outline-width: 0;
-  transition: all 0.15s ease-out; */
 
 #projectInput {
   height: 40px;
