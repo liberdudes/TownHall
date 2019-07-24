@@ -234,14 +234,13 @@ class App extends React.Component {
         <button type="button" onClick={this.handleNextPage}>
           Load More
         </button>
-
+      );
     } else if (this.state.container === "Provide Feedback") {
       container = (
         <NewFeedback
           projects={this.state.projects}
           onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
         />
-
       );
     } else if (this.state.container === "Admin Mode") {
       container = <p> admin </p>;
@@ -284,15 +283,12 @@ class App extends React.Component {
           />
         </div>
         <div className="header">
-
           <SearchBar onSearchChange={this.handleSearchChange} />{" "}
-      
           <SearchBar
             onSearchChange={this.handleSearchChange}
             container={this.state.container}
             onNewFeedbackClick={this.handleContainerChange}
           />
-
         </div>
         <div className="main">
           {topBar} {container}
