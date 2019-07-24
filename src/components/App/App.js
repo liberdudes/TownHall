@@ -6,6 +6,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
 import FeedbackCard from "../FeedbackCard/FeedbackCard";
 import TopBar from "../TopBar/TopBar";
+import NewFeedback from "../NewFeedback/NewFeedback";
 
 class App extends React.Component {
   constructor(props) {
@@ -200,6 +201,13 @@ class App extends React.Component {
           />
         );
       });
+    } else if (this.state.container === "Provide Feedback") {
+      container = (
+        <NewFeedback
+          projects={this.state.projects}
+          onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
+        />
+      );
     } else if (this.state.container === "Admin Mode") {
       container = <p>admin</p>;
     } else if (this.state.container === "Statistics") {
@@ -241,7 +249,11 @@ class App extends React.Component {
           />
         </div>
         <div className="header">
-          <SearchBar onSearchChange={this.handleSearchChange} />
+          <SearchBar
+            onSearchChange={this.handleSearchChange}
+            container={this.state.container}
+            onNewFeedbackClick={this.handleContainerChange}
+          />
         </div>
         <div className="main">
           {topBar}

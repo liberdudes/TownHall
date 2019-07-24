@@ -32,6 +32,7 @@ class Filters extends React.Component {
       <div className="filtersContainer">
         <div className="filtersDateContainer">
           <select
+            className="filterStyling"
             value={this.props.dateFilter}
             onChange={event => this.handleDateFilterChange(event)}
           >
@@ -43,6 +44,7 @@ class Filters extends React.Component {
         </div>
         <div className="filtersVotesContainer">
           <select
+            className="filterStyling"
             value={this.props.votesFilter}
             onChange={this.handleVotesFilterChange}
           >
@@ -53,6 +55,7 @@ class Filters extends React.Component {
         </div>
         <div className="filtersProjectContainer">
           <select
+            className="filterStyling"
             value={this.props.projectFilter}
             onChange={this.handleProjectFilterChange}
           >
@@ -68,6 +71,7 @@ class Filters extends React.Component {
         </div>
         <div className="filtersStatusContainer">
           <select
+            className="filterStyling"
             value={this.props.statusFilter}
             onChange={this.handleStatusFilterChange}
           >

@@ -7,6 +7,7 @@
     "filters";
   margin-left: 40px;
   margin-right: 0px;
+  margin-top: 25px;
 }
 
 .topBarFiltersContainer {
@@ -15,4 +16,25 @@
   /* border-color: white;
   border-width: 2px;
   border-style: solid; */
+}
+
+.filterStyling {
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #8c8c8d;
+  outline-width: 0;
+  transition: all 0.15s ease-out;
+}
+
+.filterStyling:hover,
+.filterStyling:focus {
+  background: #151419;
 }
