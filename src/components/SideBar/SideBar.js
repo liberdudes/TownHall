@@ -37,6 +37,13 @@ class SideBar extends React.Component {
           Feedback
         </button>
         <button
+          className={this.buttonStylesheet("Projects")}
+          id="Projects"
+          onClick={this.handleContainerChange}
+        >
+          Projects
+        </button>
+        <button
           className={this.buttonStylesheet("Admin Mode")}
           id="Admin Mode"
           onClick={this.handleContainerChange}

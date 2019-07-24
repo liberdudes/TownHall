@@ -248,12 +248,15 @@ class App extends React.Component {
       container = <p> statistics </p>;
     } else if (this.state.container === "Settings") {
       container = <p> settings </p>;
+    } else if (this.state.container === "Projects") {
+      container = <p> projects </p>;
     }
 
     let topBar;
     if (
       this.state.container === "Feedback" ||
-      this.state.container === "Admin Mode"
+      this.state.container === "Admin Mode" ||
+      this.state.container === "Projects"
     ) {
       topBar = (
         <TopBar
@@ -283,7 +286,6 @@ class App extends React.Component {
           />
         </div>
         <div className="header">
-          <SearchBar onSearchChange={this.handleSearchChange} />{" "}
           <SearchBar
             onSearchChange={this.handleSearchChange}
             container={this.state.container}
