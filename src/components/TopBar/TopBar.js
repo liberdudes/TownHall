@@ -1,6 +1,5 @@
 import React from "react";
 import Filters from "../Filters/Filters";
-import NewFeedback from "../NewFeedback/NewFeedback";
 import "./TopBar.css";
 
 class TopBar extends React.Component {
@@ -40,12 +39,12 @@ class TopBar extends React.Component {
     // project
     let newFeedback;
     if (this.props.container === "Feedback") {
-      newFeedback = (
-        <NewFeedback
-          projects={this.props.projects}
-          onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
-        />
-      );
+      // newFeedback = (
+      //   <NewFeedback
+      //     projects={this.props.projects}
+      //     onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
+      //   />
+      // );
     } else {
       newFeedback = null;
     }

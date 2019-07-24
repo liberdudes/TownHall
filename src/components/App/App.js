@@ -6,11 +6,13 @@ import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
 import FeedbackCard from "../FeedbackCard/FeedbackCard";
 import TopBar from "../TopBar/TopBar";
+import NewFeedback from "../NewFeedback/NewFeedback";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleUpvote = this.handleUpvote.bind(this);
     this.handleNewFeedbackSubmit = this.handleNewFeedbackSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -54,6 +56,10 @@ class App extends React.Component {
         projects: newProjects
       });
     });
+  }
+
+  handleUpvote(value) {
+    helper.upvoteMessage(value);
   }
 
   handleNewFeedbackSubmit(values) {
@@ -215,12 +221,27 @@ class App extends React.Component {
     let container;
     if (this.state.container === "Feedback") {
       container = filteredFeedback.map(feedback => {
-        return <FeedbackCard key={feedback.messageId} feedback={feedback} />;
+        return (
+          <FeedbackCard
+            key={feedback.messageId}
+            feedback={feedback}
+            onUpvote={this.handleUpvote}
+          />
+        );
       });
+
       container.push(
         <button type="button" onClick={this.handleNextPage}>
           Load More
         </button>
+
+    } else if (this.state.container === "Provide Feedback") {
+      container = (
+        <NewFeedback
+          projects={this.state.projects}
+          onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
+        />
+
       );
     } else if (this.state.container === "Admin Mode") {
       container = <p> admin </p>;
@@ -240,7 +261,7 @@ class App extends React.Component {
           container={this.state.container}
           onNewFeedbackSubmit={this.handleNewFeedbackSubmit}
           dateFilter={this.state.dateFilter}
-          onDateFilterChange={event => this.handleDateFilterChange(event)}
+          onDateFilterChange={this.handleDateFilterChange}
           votesFilter={this.state.votesFilter}
           onVotesFilterChange={this.handleVotesFilterChange}
           projects={this.state.projects}
@@ -263,7 +284,15 @@ class App extends React.Component {
           />
         </div>
         <div className="header">
+
           <SearchBar onSearchChange={this.handleSearchChange} />{" "}
+      
+          <SearchBar
+            onSearchChange={this.handleSearchChange}
+            container={this.state.container}
+            onNewFeedbackClick={this.handleContainerChange}
+          />
+
         </div>
         <div className="main">
           {topBar} {container}

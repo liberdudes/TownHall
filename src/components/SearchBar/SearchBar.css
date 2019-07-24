@@ -2,10 +2,24 @@
   margin-top: 25px;
   margin-bottom: 25px;
   margin-left: 40px;
+  margin-right: 40px;
+
+  display: grid;
+  grid-template-columns: [start] 2/3 [second] auto [end];
+  grid-template-rows: auto;
+  grid-template-areas: "search feedbackButton";
+}
+
+.searchBar {
+  grid-area: search;
+
+  /* border-color: white;
+  border-width: 2px;
+  border-style: solid; */
 }
 
 .searchInput {
-  width: 50%;
+  width: 80%;
   height: 40px;
   background: #222128;
   border: 2px solid #24262a;
@@ -27,4 +41,60 @@
 .searchInput:hover,
 .searchInput:focus {
   background: #151419;
+}
+
+.feedbackButton {
+  grid-area: feedbackButton;
+  text-align: right;
+  /* margin-right: 20px; */
+
+  /* border-color: white;
+  border-width: 2px;
+  border-style: solid; */
+}
+
+#provideFeedbackButton {
+  height: 45px;
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: #e4e3e8;
+  outline-width: 0;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+#inactiveProvideFeedbackButton {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: #e4e3e8;
+  height: 45px;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  outline-width: 0;
+  padding-left: 18px;
+  padding-right: 18px;
+  transition: all 0.15s ease-out;
+}
+
+#inactiveProvideFeedbackButton:hover {
+  background: #222128;
+  border: 2px solid #24262a;
+  box-sizing: border-box;
+  border-radius: 5px;
 }

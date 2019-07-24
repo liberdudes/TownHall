@@ -10,7 +10,9 @@ class NewFeedback extends React.Component {
       description: "",
       project: "",
       projects: this.props.projects,
-      isErrorPresent: false
+      subjectInputError: true,
+      descriptionInputError: true,
+      projectInputError: true
     };
 
     this.handleSubjectChange = this.handleSubjectChange.bind(this);
@@ -21,18 +23,50 @@ class NewFeedback extends React.Component {
 
   handleSubjectChange(e) {
     this.setState({ subject: e.target.value });
+
+    const MIN_SUBJECT_LENGTH = 5;
+    const MAX_SUBJECT_LENGTH = 40;
+
+    let subjectLength = e.target.value.length;
+
+    if (
+      !(subjectLength >= MIN_SUBJECT_LENGTH) ||
+      !(subjectLength <= MAX_SUBJECT_LENGTH)
+    ) {
+      this.setState({ subjectInputError: true });
+    } else {
+      this.setState({ subjectInputError: false });
+    }
   }
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+
+    const MIN_DESC_LENGTH = 10;
+    const MAX_DESC_LENGTH = 200;
+
+    let descriptionLength = e.target.value.length;
+
+    if (
+      !(descriptionLength >= MIN_DESC_LENGTH) ||
+      !(descriptionLength <= MAX_DESC_LENGTH)
+    ) {
+      this.setState({ descriptionInputError: true });
+    } else {
+      this.setState({ descriptionInputError: false });
+    }
   }
 
   handleProjectChange(e) {
     this.setState({ project: e.target.value });
-  }
 
-  toggleError() {
-    this.setState({ isErrorPresent: !this.state.isErrorPresent });
+    let project = e.target.value;
+
+    if (project === "") {
+      this.setState({ projectInputError: true });
+    } else {
+      this.setState({ projectInputError: false });
+    }
   }
 
   resetFormState() {
@@ -40,34 +74,18 @@ class NewFeedback extends React.Component {
       subject: "",
       description: "",
       project: "",
-      isErrorPresent: false
+      subjectInputError: true,
+      descriptionInputError: true,
+      projectInputError: true
     });
   }
 
   handleNewFeedbackSubmit(e) {
-    const MIN_SUBJECT_LENGTH = 5;
-    const MAX_SUBJECT_LENGTH = 40;
-
-    const MIN_DESC_LENGTH = 10;
-    const MAX_DESC_LENGTH = 200;
-
-    let subjectLength = this.state.subject.length;
-    let descriptionLength = this.state.description.length;
-    let projectLength = this.state.project.length;
-
     if (
-      !(subjectLength >= MIN_SUBJECT_LENGTH) ||
-      !(subjectLength <= MAX_SUBJECT_LENGTH) ||
-      (!(descriptionLength >= MIN_DESC_LENGTH) ||
-        !(descriptionLength <= MAX_DESC_LENGTH)) ||
-      projectLength === 0
+      this.state.subjectInputError === false &&
+      this.state.descriptionInputError === false &&
+      this.state.projectInputError === false
     ) {
-      console.log("input error");
-
-      if (this.state.isErrorPresent === false) {
-        this.toggleError();
-      }
-    } else {
       const formContent = {
         subject: this.state.subject,
         description: this.state.description,
@@ -80,38 +98,88 @@ class NewFeedback extends React.Component {
   }
 
   render() {
-    let userError;
-    if (this.state.isErrorPresent) {
-      userError = <p>USER ERROR</p>;
+    console.log(this.state);
+
+    let subjectSecondaryLabelClass;
+    let subjectInputId;
+    if (this.state.subjectInputError) {
+      subjectSecondaryLabelClass = "newFeedbackSubjectSecondaryLabelUserError";
+      subjectInputId = "subjectInputUserError";
     } else {
-      userError = null;
+      subjectSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      subjectInputId = "subjectInput";
     }
+
+    let descriptionSecondaryLabelClass;
+    let descriptionInputId;
+    if (this.state.descriptionInputError) {
+      descriptionSecondaryLabelClass =
+        "newFeedbackDescriptionSecondaryLabelUserError";
+      descriptionInputId = "descriptionInputUserError";
+    } else {
+      descriptionSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      descriptionInputId = "descriptionInput";
+    }
+
+    let projectSecondaryLabelClass;
+    let projectInputId;
+    if (this.state.projectInputError) {
+      projectSecondaryLabelClass = "newFeedbackProjectSecondaryLabelUserError";
+      projectInputId = "projectInputUserError";
+    } else {
+      projectSecondaryLabelClass = "newFeedbackSecondaryLabel";
+      projectInputId = "projectInput";
+    }
+
     return (
       <div className="newFeedbackContainer">
-        {userError}
-        <form onSubmit={this.handleNewFeedbackSubmit}>
-          <label>
-            Subject
+        <div className="newFeedbackTitleContainer">
+          <h2 className="newFeedbackTitle">Provide Feedback</h2>
+        </div>
+        <form
+          className="formFeedbackContainer"
+          onSubmit={this.handleNewFeedbackSubmit}
+        >
+          <div className="newFeedbackSubjectLabelContainer">
+            <p className="newFeedbackPrimaryLabel">Subject</p>
+            <p className={subjectSecondaryLabelClass}>
+              Must be betweeen 5-40 characters.
+            </p>
+          </div>
+          <div className="newFeedbackSubjectContainer">
             <input
+              id={subjectInputId}
               type="text"
-              placeholder="Provide a subject"
+              placeholder="Brief summary"
               value={this.state.subject}
               onChange={this.handleSubjectChange}
               required
             />
-          </label>
-          <label>
-            Description
+          </div>
+          <div className="newFeedbackDescriptionLabelContainer">
+            <p className="newFeedbackPrimaryLabel">Description</p>
+            <p className={descriptionSecondaryLabelClass}>
+              Must be between 10-200 characters.
+            </p>
+          </div>
+          <div className="newFeedbackDescriptionContainer">
             <textarea
-              placeholder="Provide a description"
+              id={descriptionInputId}
+              placeholder="Details you may want to provide"
               value={this.state.description}
               onChange={this.handleDescriptionChange}
               required
             />
-          </label>
-          <label>
-            Project
+          </div>
+          <div className="newFeedbackProjectLabelContainer">
+            <p className="newFeedbackPrimaryLabel">Project</p>
+            <p className={projectSecondaryLabelClass}>
+              Specify the project associated with your feedback.
+            </p>
+          </div>
+          <div className="newFeedbackProjectContainer">
             <select
+              id={projectInputId}
               value={this.state.project}
               onChange={this.handleProjectChange}
             >
@@ -126,8 +194,14 @@ class NewFeedback extends React.Component {
                 );
               })}
             </select>
-          </label>
-          <input type="submit" value="Submit" />
+          </div>
+          <div className="newFeedbackSubmitContainer">
+            <input
+              className="newFeedbackSubmitButton"
+              type="submit"
+              value="Submit"
+            />
+          </div>
         </form>
       </div>
     );

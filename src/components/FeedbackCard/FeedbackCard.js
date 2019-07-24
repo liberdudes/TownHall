@@ -1,12 +1,16 @@
 import React from "react";
 import moment from "moment";
 import "./FeedbackCard.css";
-import { upvoteMessage } from "../../api/helper";
 
 class FeedbackCard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleUpvote = this.handleUpvote.bind(this);
+  }
+
   handleUpvote(e) {
-    upvoteMessage(e.target.value);
-    console.log("Upvoted");
+    this.props.onUpvote(e.target.value);
   }
 
   render() {
